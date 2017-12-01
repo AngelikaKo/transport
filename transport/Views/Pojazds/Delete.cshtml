@@ -1,0 +1,140 @@
+@model transport.Models.ApplicationModels.Pojazd
+
+<font color="white">
+
+    @{
+        ViewData["Title"] = "Delete";
+    }
+
+    <h2>Usuñ</h2>
+
+    <h3>Napewno chcesz usun¹æ ten pojazd?</h3>
+    <div>
+       
+        <hr />
+        <dl class="dl-horizontal">
+            <input type="hidden" asp-for="IdPojazd" />
+            <dt>
+                @Html.DisplayNameFor(model => model.Marka)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Marka)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Model)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Model)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.VIN)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VIN)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NrRejestr)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NrRejestr)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataProd)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataProd)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TachoOdczyt)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TachoOdczyt)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TachoLegal)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TachoLegal)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataPrzegl)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataPrzegl)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataUbez)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataUbez)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.SpalanieSred)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.SpalanieSred)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PrzebiegZakup)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PrzebiegZakup)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PrzebiegAktu)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PrzebiegAktu)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PrzebiegSerwis)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PrzebiegSerwis)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.RodzajKabiny)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.RodzajKabiny)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EmisjaSpalin)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EmisjaSpalin)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Retarder)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Retarder)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Aktywny)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Aktywny)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Firmy)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Firmy.IdFirma)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Pracownicy)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Pracownicy.IdPracownik)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <div class="form-actions no-color">
+                <input type="submit" value="Usuñ" class="btn btn-default" /> |
+                <a asp-action="Index">Wróæ do listy</a>
+            </div>
+        </form>
+    </div>
+</font>

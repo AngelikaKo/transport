@@ -1,0 +1,93 @@
+@model transport.Models.Pracownik
+
+<font color="white">
+
+    @{
+        ViewData["Title"] = "Details";
+    }
+
+    <h2>Szczegó³y</h2>
+
+    <div>
+       
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Imiê
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Imie)
+            </dd>
+            <dt>
+               Nazwisko
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Nazwisko)
+            </dd>
+            <dt>
+               Ulica
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ulica)
+            </dd>
+            <dt>
+                Kod pocztowy
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Kod)
+            </dd>
+            <dt>
+                Miasto
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Miasto)
+            </dd>
+            <dt>
+                Telefon
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Telefon)
+            </dd>
+            <dt>
+                Data urodzenia
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataUrodz)
+            </dd>
+            <dt>
+               Data zatrudnienia
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataZatru)
+            </dd>
+            <dt>
+                Data koñca umowy
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataKonUmowy)
+            </dd>
+            <dt>
+                Data wa¿noœci karty
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataKarty)
+            </dd>
+            <dt>
+                Data ostatniego odczytu karty
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataOdczKart)
+            </dd>
+            <dt>
+                Nr Dowodu Osobistego
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NrDowoduOsob)
+            </dd>           
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.PracownikId">Edytuj</a> |
+        <a asp-action="Index">Wróæ do listy</a>
+    </div>
+</font>

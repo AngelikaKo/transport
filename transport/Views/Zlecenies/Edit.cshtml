@@ -1,0 +1,149 @@
+@model transport.Models.ApplicationModels.Zlecenie
+
+<font color="white">
+
+    @{
+        ViewData["Title"] = "Edit";
+    }
+
+    <h2>Edytuj</h2>
+
+    <form asp-action="Edit">
+        <div class="form-horizontal">
+            <h4>Zlecenie</h4>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Status" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <select asp-for="Status" class="form-control">
+                        <option>NOWE</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdZlecenie" />
+            <div class="form-group">
+                <label asp-for="IdKontrahent" class="control-label col-md-2"></label>
+                <div class="col-md-10">
+                    <select asp-for="IdKontrahent" class="form-control" asp-items="ViewBag.IdKontrahent"></select>
+                    <span asp-validation-for="IdKontrahent" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdPracownik" class="control-label col-md-2"></label>
+                <div class="col-md-10">
+                    <select asp-for="IdPracownik" class="form-control" asp-items="ViewBag.IdPracownik"></select>
+                    <span asp-validation-for="IdPracownik" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdPojazd" class="control-label col-md-2"></label>
+                <div class="col-md-10">
+                    <select asp-for="IdPojazd" class="form-control" asp-items="ViewBag.IdPojazd"></select>
+                    <span asp-validation-for="IdPojazd" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdNaczepa" class="control-label col-md-2"></label>
+                <div class="col-md-10">
+                    <select asp-for="IdNaczepa" class="form-control" asp-items="ViewBag.IdNaczepa"></select>
+                    <span asp-validation-for="IdNaczepa" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdresOdbioru" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <textarea asp-for="AdresOdbioru" class="form-control"></textarea>
+                    <span asp-validation-for="AdresOdbioru" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdresDosta" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <textarea asp-for="AdresDosta" class="form-control"></textarea>
+                    <span asp-validation-for="AdresDosta" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataZalad" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="DataZalad" class="form-control" />
+                    <span asp-validation-for="DataZalad" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="GodzZalad" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="GodzZalad" class="form-control" />
+                    <span asp-validation-for="GodzZalad" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataRozl" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="DataRozl" class="form-control" />
+                    <span asp-validation-for="DataRozl" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="GodzRozl" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="GodzRozl" class="form-control" />
+                    <span asp-validation-for="GodzRozl" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Uwagi" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <textarea asp-for="Uwagi" class="form-control"></textarea>
+                    <span asp-validation-for="Uwagi" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DaneTowar" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <textarea asp-for="DaneTowar" class="form-control"></textarea>
+                    <span asp-validation-for="DaneTowar" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="WagaTow" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="WagaTow" class="form-control" />
+                    <span asp-validation-for="WagaTow" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="WartoscNetto" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="WartoscNetto" class="form-control" />
+                    <span asp-validation-for="WartoscNetto" class="text-danger"></span>
+                </div>
+            </div>  
+            <div class="form-group">
+                <label asp-for="Waluta" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <select asp-for="Waluta" class="form-control">
+                        <option>Z£</option>
+                        <option>EUR</option>
+                    </select>
+                    <span asp-validation-for="Waluta" class="text-danger"></span>
+                </div>
+            </div> 
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Zapisz" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div>
+        <a asp-action="Index">Wróæ do listy</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</font>

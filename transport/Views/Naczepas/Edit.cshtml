@@ -1,0 +1,95 @@
+@model transport.Models.ApplicationModels.Naczepa
+
+<font color="white">
+
+    @{
+        ViewData["Title"] = "Edit";
+    }
+
+    <h2>Edytuj</h2>
+
+    <form asp-action="Edit">
+        <div class="form-horizontal">
+            <h4>Naczepa</h4>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdNaczepa" />
+            <div class="form-group">
+                <label asp-for="IdPracownik" class="control-label col-md-2"></label>
+                <div class="col-md-10">
+                    <select asp-for="IdPracownik" class="form-control" asp-items="ViewBag.IdPracownik"></select>
+                    <span asp-validation-for="IdPracownik" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Marka" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Marka" class="form-control" />
+                    <span asp-validation-for="Marka" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rodzaj" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Rodzaj" class="form-control" />
+                    <span asp-validation-for="Rodzaj" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="NrRejestr" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="NrRejestr" class="form-control" />
+                    <span asp-validation-for="NrRejestr" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataProd" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="DataProd" class="form-control" />
+                    <span asp-validation-for="DataProd" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Wymiary" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Wymiary" class="form-control" />
+                    <span asp-validation-for="Wymiary" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataPrzegl" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="DataPrzegl" class="form-control" />
+                    <span asp-validation-for="DataPrzegl" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataUbez" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="DataUbez" class="form-control" />
+                    <span asp-validation-for="DataUbez" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Wyposazenie" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Wyposazenie" class="form-control" />
+                    <span asp-validation-for="Wyposazenie" class="text-danger"></span>
+                </div>
+            </div>          
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Zapisz" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div>
+        <a asp-action="Index">Wróæ do listy</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</font>

@@ -1,0 +1,67 @@
+@model transport.Models.Firma
+
+<font color="white">
+
+    @{
+        ViewData["Title"] = "Details";
+    }
+
+    <h2>Dane firmy</h2>
+
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Nazwa)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Nazwa)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NIP)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NIP)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Regon)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Regon)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Wlasciciel)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Wlasciciel)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.UlicaF)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UlicaF)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.KodF)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.KodF)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.MiastoF)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.MiastoF)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TelefonF)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TelefonF)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Index">Wróæ do listy</a>
+    </div>
+</font>

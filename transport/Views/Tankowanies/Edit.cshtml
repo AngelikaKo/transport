@@ -1,0 +1,79 @@
+@model transport.Models.ApplicationModels.Tankowanie
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Tankowanie</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="IdTankowania" />
+        <div class="form-group">
+            <label asp-for="IdPracownik" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="IdPracownik" class="form-control" asp-items="ViewBag.IdPracownik"></select>
+                <span asp-validation-for="IdPracownik" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="IdPojazd" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="IdPojazd" class="form-control" asp-items="ViewBag.IdPojazd"></select>
+                <span asp-validation-for="IdPojazd" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PrzebiegTankow" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="PrzebiegTankow" class="form-control" />
+                <span asp-validation-for="PrzebiegTankow" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="IloscPaliwa" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="IloscPaliwa" class="form-control" />
+                <span asp-validation-for="IloscPaliwa" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="WartoscPaliwa" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="WartoscPaliwa" class="form-control" />
+                <span asp-validation-for="WartoscPaliwa" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="DataTank" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="DataTank" class="form-control" />
+                <span asp-validation-for="DataTank" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <input asp-for="Aktywny" />
+                    <label asp-for="Aktywny"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

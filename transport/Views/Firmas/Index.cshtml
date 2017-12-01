@@ -1,0 +1,65 @@
+@model IEnumerable<transport.Models.Firma>
+
+<font color="white">
+
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <h2>Lista firm</h2>
+
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nazwa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NIP)
+                </th>                
+                <th>
+                    @Html.DisplayNameFor(model => model.Wlasciciel)
+                </th>               
+                <th>
+                    @Html.DisplayNameFor(model => model.KodF)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MiastoF)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TelefonF)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nazwa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NIP)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Wlasciciel)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.KodF)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MiastoF)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TelefonF)
+                    </td>                    
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.IdFirma">Wiêcej</a> 
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</font>

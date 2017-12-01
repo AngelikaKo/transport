@@ -1,0 +1,145 @@
+@model transport.Models.ApplicationModels.Zlecenie
+
+
+<font color="white">
+
+    @{
+        ViewData["Title"] = "Dodaj nowe zlecenie";
+    }
+
+    <h2>@ViewData["Title"].</h2>
+
+    <form asp-action="Create">
+        <div class="form-horizontal">
+           
+            <hr />
+            <div class="form-group">
+                <label asp-for="Status" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <select asp-for="Status" class="form-control">
+                        <option>NOWE</option>                       
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdKontrahent" class="col-md-2 control-label">Kontrahent</label>
+                <div class="col-md-10">
+                    <select asp-for="IdKontrahent" class="form-control" asp-items="ViewBag.IdKontrahent"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdPracownik" class="col-md-2 control-label">Kierowca</label>
+                <div class="col-md-10">
+                    <select asp-for="IdPracownik" class="form-control" asp-items="ViewBag.IdPracownik"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdPojazd" class="col-md-2 control-label">Nr rej. ci¹gnika</label>
+                <div class="col-md-10">
+                    <select asp-for="IdPojazd" class="form-control" asp-items="ViewBag.IdPojazd"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdNaczepa" class="col-md-2 control-label">Nr rej. naczepy</label>
+                <div class="col-md-10">
+                    <select asp-for="IdNaczepa" class="form-control" asp-items="ViewBag.IdNaczepa"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdresOdbioru" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <textarea asp-for="AdresOdbioru" class="form-control"></textarea>
+                    <span asp-validation-for="AdresOdbioru" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdresDosta" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <textarea asp-for="AdresDosta" class="form-control"></textarea>
+                    <span asp-validation-for="AdresDosta" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataZalad" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="DataZalad" class="form-control" />
+                    <span asp-validation-for="DataZalad" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="GodzZalad" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="GodzZalad" class="form-control" />
+                    <span asp-validation-for="GodzZalad" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataRozl" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="DataRozl" class="form-control" />
+                    <span asp-validation-for="DataRozl" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="GodzRozl" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="GodzRozl" class="form-control" />
+                    <span asp-validation-for="GodzRozl" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Uwagi" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <textarea asp-for="Uwagi" class="form-control"></textarea>
+                    <span asp-validation-for="Uwagi" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DaneTowar" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <textarea asp-for="DaneTowar" class="form-control"></textarea>
+                    <span asp-validation-for="DaneTowar" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="WagaTow" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="WagaTow" class="form-control" />
+                    <span asp-validation-for="WagaTow" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="WartoscNetto" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="WartoscNetto" class="form-control" />
+                    <span asp-validation-for="WartoscNetto" class="text-danger"></span>
+                </div>
+            </div>  
+            <div class="form-group">
+                <label asp-for="Waluta" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <select asp-for="Waluta" class="form-control">
+                        <option>Z£</option>
+                        <option>EUR</option>                       
+                    </select>
+                    <span asp-validation-for="Waluta" class="text-danger"></span>
+                </div>
+            </div>  
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Dodaj" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div>
+        <a asp-action="Index">Wróæ do listy</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</font>

@@ -1,0 +1,65 @@
+@model transport.Models.ApplicationModels.Tankowanie
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Tankowanie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <input type="hidden" asp-for="IdTankowania" />
+        <dt>
+            @Html.DisplayNameFor(model => model.PrzebiegTankow)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PrzebiegTankow)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IloscPaliwa)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IloscPaliwa)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WartoscPaliwa)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WartoscPaliwa)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DataTank)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataTank)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Aktywny)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Aktywny)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pojazd)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pojazd.IdPojazd)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Pracownicy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pracownicy.IdPracownik)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>

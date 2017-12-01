@@ -1,0 +1,105 @@
+@model transport.Models.ApplicationModels.Zlecenie
+
+<font color="white">
+
+    @{
+        ViewData["Title"] = "Details";
+    }
+
+    <h2>Szczegó³y</h2>
+
+    <div>
+        <h4>Zlecenie</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.AdresOdbioru)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AdresOdbioru)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.AdresDosta)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AdresDosta)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataZalad)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataZalad)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.GodzZalad)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.GodzZalad)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataRozl)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataRozl)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.GodzRozl)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.GodzRozl)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Uwagi)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Uwagi)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DaneTowar)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DaneTowar)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.WagaTow)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.WagaTow)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.WartoscNetto)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.WartoscNetto)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Kontrahent)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Kontrahent.IdKontrahent)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Naczepa)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Naczepa.IdNaczepa)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Pojazd)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Pojazd.IdPojazd)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Pracownicy)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Pracownicy.IdPracownik)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.IdZlecenie">Edytuj</a> |
+        <a asp-action="Index">Wróæ do listy</a>
+    </div>
+</font>

@@ -1,0 +1,81 @@
+@model transport.Models.ApplicationModels.Kontrahent
+
+<font color="white">
+
+    @{
+        ViewData["Title"] = "Details";
+    }
+
+    <h2>Szczegó³y</h2>
+
+    <div>
+        <h4>Kontrahent</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Nazwa)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Nazwa)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NIP)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NIP)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Regon)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Regon)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Wlasciciel)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Wlasciciel)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ulica)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ulica)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Kod)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Kod)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Miasto)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Miasto)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Telefon)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Telefon)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EMail)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EMail)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Typ)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Typ)
+            </dd>           
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.IdKontrahent">Edytuj</a> |
+        <a asp-action="Index">Wróæ do listy</a>
+    </div>
+</font>

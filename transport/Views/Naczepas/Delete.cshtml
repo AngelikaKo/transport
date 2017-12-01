@@ -1,0 +1,86 @@
+@model transport.Models.ApplicationModels.Naczepa
+
+<font color="white">
+
+    @{
+        ViewData["Title"] = "Delete";
+    }
+
+    <h2>Usuñ</h2>
+
+    <h3>Napewno chcesz usun¹æ t¹ naczepê?</h3>
+    <div>
+        <h4>Naczepa</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <input type="hidden" asp-for="IdNaczepa" />
+            <dt>
+                @Html.DisplayNameFor(model => model.Marka)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Marka)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Rodzaj)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Rodzaj)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NrRejestr)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NrRejestr)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataProd)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataProd)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Wymiary)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Wymiary)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataPrzegl)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataPrzegl)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataUbez)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataUbez)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Wyposazenie)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Wyposazenie)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Aktywny)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Aktywny)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Pracownicy)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Pracownicy.IdPracownik)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <div class="form-actions no-color">
+                <input type="submit" value="Usuñ" class="btn btn-default" /> |
+                <a asp-action="Index">Wróæ do listy</a>
+            </div>
+        </form>
+    </div>
+</font>

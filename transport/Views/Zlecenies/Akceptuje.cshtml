@@ -1,0 +1,106 @@
+@model transport.Models.ApplicationModels.Zlecenie
+
+<font color="white">
+
+    @{
+        ViewData["Title"] = "Akceptuje";
+    }
+
+    <h2>Zlecenie</h2>
+
+    <form asp-action="Akceptuje">
+        <div class="form-horizontal">
+            <h4>Szczegó³y</h4>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdZlecenie" />
+            <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.AdresOdbioru)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AdresOdbioru)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.AdresDosta)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AdresDosta)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataZalad)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataZalad)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.GodzZalad)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.GodzZalad)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataRozl)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataRozl)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.GodzRozl)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.GodzRozl)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Uwagi)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Uwagi)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DaneTowar)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DaneTowar)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.WagaTow)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.WagaTow)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.WartoscNetto)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.WartoscNetto)
+            </dd>
+           
+            </dl>
+        
+            <div class="form-group">
+                <label asp-for="Status" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <select asp-for="Status" class="form-control">
+                        <option>Realizowane</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+            </div>           
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Akceptuje" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div>
+        <a asp-action="Index">Wróæ do listy</a>
+    </div>
+
+</font>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

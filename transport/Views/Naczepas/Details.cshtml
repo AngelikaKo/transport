@@ -1,0 +1,75 @@
+@model transport.Models.ApplicationModels.Naczepa
+
+<font color="white">
+
+    @{
+        ViewData["Title"] = "Details";
+    }
+
+    <h2>Szczegó³y</h2>
+
+    <div>
+        <h4>Naczepa</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Marka)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Marka)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Rodzaj)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Rodzaj)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NrRejestr)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NrRejestr)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataProd)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataProd)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Wymiary)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Wymiary)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataPrzegl)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataPrzegl)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataUbez)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataUbez)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Wyposazenie)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Wyposazenie)
+            </dd>            
+            <dt>
+                @Html.DisplayNameFor(model => model.Pracownicy)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Pracownicy.IdPracownik)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.IdNaczepa">Edytuj</a> |
+        <a asp-action="Index">Wróæ do listy</a>
+    </div>
+</font>
