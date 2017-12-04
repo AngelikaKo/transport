@@ -65,7 +65,10 @@ namespace transport.Controllers
         [Authorize(Roles = "Firma, Admin")]
         public IActionResult Create()
         {           
-            ViewData["PracownikId"] = new SelectList(_context.Pracownicy, "PracownikId", "PracownikId");
+            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId =s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko}), 
+            "PracownikId", "FullName");
             return View();
         }
 
@@ -88,7 +91,10 @@ namespace transport.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }           
-            ViewData["PracownikId"] = new SelectList(_context.Pracownicy, "PracownikId", "PracownikId", pojazd.IdPracownik);
+            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId =s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko}), 
+            "PracownikId", "FullName", null);
             return View(pojazd);
         }
 
