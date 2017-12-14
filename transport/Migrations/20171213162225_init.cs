@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace transport.Migrations
 {
-    public partial class NowaBaza : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -316,8 +316,7 @@ namespace transport.Migrations
                     DataOdczKart = table.Column<DateTime>(nullable: false),
                     DataUrodz = table.Column<DateTime>(nullable: false),
                     DataZatru = table.Column<DateTime>(nullable: false),
-                    FirmaId = table.Column<string>(nullable: true),
-                    FirmaIdFirma = table.Column<int>(nullable: true),
+                    FirmaId = table.Column<int>(nullable: false),
                     Imie = table.Column<string>(nullable: true),
                     Kod = table.Column<string>(nullable: true),
                     Miasto = table.Column<string>(nullable: true),
@@ -331,11 +330,11 @@ namespace transport.Migrations
                 {
                     table.PrimaryKey("PK_Pracownicy", x => x.PracownikId);
                     table.ForeignKey(
-                        name: "FK_Pracownicy_Firmy_FirmaIdFirma",
-                        column: x => x.FirmaIdFirma,
+                        name: "FK_Pracownicy_Firmy_FirmaId",
+                        column: x => x.FirmaId,
                         principalTable: "Firmy",
                         principalColumn: "IdFirma",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Pracownicy_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -357,7 +356,7 @@ namespace transport.Migrations
                     IdPracownik = table.Column<int>(nullable: false),
                     Marka = table.Column<string>(nullable: true),
                     NrRejestr = table.Column<string>(nullable: true),
-                    PracownicyPracownikId = table.Column<int>(nullable: true),
+                    PracownikId = table.Column<int>(nullable: true),
                     Rodzaj = table.Column<string>(nullable: true),
                     Wymiary = table.Column<string>(nullable: true),
                     Wyposazenie = table.Column<string>(nullable: true)
@@ -366,8 +365,8 @@ namespace transport.Migrations
                 {
                     table.PrimaryKey("PK_Naczepy", x => x.IdNaczepa);
                     table.ForeignKey(
-                        name: "FK_Naczepy_Pracownicy_PracownicyPracownikId",
-                        column: x => x.PracownicyPracownikId,
+                        name: "FK_Naczepy_Pracownicy_PracownikId",
+                        column: x => x.PracownikId,
                         principalTable: "Pracownicy",
                         principalColumn: "PracownikId",
                         onDelete: ReferentialAction.Restrict);
@@ -389,7 +388,6 @@ namespace transport.Migrations
                     Marka = table.Column<string>(nullable: true),
                     Model = table.Column<string>(nullable: true),
                     NrRejestr = table.Column<string>(nullable: true),
-                    PracownicyPracownikId = table.Column<int>(nullable: true),
                     PrzebiegAktu = table.Column<int>(nullable: false),
                     PrzebiegSerwis = table.Column<int>(nullable: false),
                     PrzebiegZakup = table.Column<int>(nullable: false),
@@ -410,8 +408,8 @@ namespace transport.Migrations
                         principalColumn: "IdFirma",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Pojazdy_Pracownicy_PracownicyPracownikId",
-                        column: x => x.PracownicyPracownikId,
+                        name: "FK_Pojazdy_Pracownicy_IdPracownik",
+                        column: x => x.IdPracownik,
                         principalTable: "Pracownicy",
                         principalColumn: "PracownikId",
                         onDelete: ReferentialAction.Restrict);
@@ -428,7 +426,7 @@ namespace transport.Migrations
                     IdPojazd = table.Column<int>(nullable: false),
                     IdPracownik = table.Column<int>(nullable: false),
                     IloscPaliwa = table.Column<decimal>(nullable: false),
-                    PracownicyPracownikId = table.Column<int>(nullable: true),
+                    PracownikId = table.Column<int>(nullable: true),
                     PrzebiegTankow = table.Column<int>(nullable: false),
                     WartoscPaliwa = table.Column<decimal>(nullable: false)
                 },
@@ -442,8 +440,8 @@ namespace transport.Migrations
                         principalColumn: "IdPojazd",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tankowania_Pracownicy_PracownicyPracownikId",
-                        column: x => x.PracownicyPracownikId,
+                        name: "FK_Tankowania_Pracownicy_PracownikId",
+                        column: x => x.PracownikId,
                         principalTable: "Pracownicy",
                         principalColumn: "PracownikId",
                         onDelete: ReferentialAction.Restrict);
@@ -467,7 +465,7 @@ namespace transport.Migrations
                     IdNaczepa = table.Column<int>(nullable: false),
                     IdPojazd = table.Column<int>(nullable: false),
                     IdPracownik = table.Column<int>(nullable: false),
-                    PracownicyPracownikId = table.Column<int>(nullable: true),
+                    PracownikId = table.Column<int>(nullable: true),
                     Status = table.Column<string>(nullable: true),
                     Uwagi = table.Column<string>(nullable: true),
                     WagaTow = table.Column<string>(nullable: true),
@@ -496,8 +494,8 @@ namespace transport.Migrations
                         principalColumn: "IdPojazd",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Zlecenia_Pracownicy_PracownicyPracownikId",
-                        column: x => x.PracownicyPracownikId,
+                        name: "FK_Zlecenia_Pracownicy_PracownikId",
+                        column: x => x.PracownikId,
                         principalTable: "Pracownicy",
                         principalColumn: "PracownikId",
                         onDelete: ReferentialAction.Restrict);
@@ -530,9 +528,9 @@ namespace transport.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Naczepy_PracownicyPracownikId",
+                name: "IX_Naczepy_PracownikId",
                 table: "Naczepy",
-                column: "PracownicyPracownikId");
+                column: "PracownikId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ogloszenia_FirmaId",
@@ -545,9 +543,9 @@ namespace transport.Migrations
                 column: "IdFirma");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pojazdy_PracownicyPracownikId",
+                name: "IX_Pojazdy_IdPracownik",
                 table: "Pojazdy",
-                column: "PracownicyPracownikId");
+                column: "IdPracownik");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tankowania_IdPojazd",
@@ -555,9 +553,9 @@ namespace transport.Migrations
                 column: "IdPojazd");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tankowania_PracownicyPracownikId",
+                name: "IX_Tankowania_PracownikId",
                 table: "Tankowania",
-                column: "PracownicyPracownikId");
+                column: "PracownikId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Zlecenia_IdKontrahent",
@@ -575,9 +573,9 @@ namespace transport.Migrations
                 column: "IdPojazd");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Zlecenia_PracownicyPracownikId",
+                name: "IX_Zlecenia_PracownikId",
                 table: "Zlecenia",
-                column: "PracownicyPracownikId");
+                column: "PracownikId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -597,9 +595,9 @@ namespace transport.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pracownicy_FirmaIdFirma",
+                name: "IX_Pracownicy_FirmaId",
                 table: "Pracownicy",
-                column: "FirmaIdFirma");
+                column: "FirmaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pracownicy_UserId",

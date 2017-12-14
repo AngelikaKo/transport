@@ -14,8 +14,7 @@ namespace transport.Models.ApplicationModels
         public int IdOgloszenie { get; set; }
 
         public int FirmaId { get; set; }
-
-        public Firma Firmy { get; set; }
+        public virtual Firma Firma { get; set; }
 
         [Display(Name = "Data dodania")]
         [DataType(DataType.DateTime)]

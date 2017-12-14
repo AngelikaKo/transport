@@ -14,12 +14,10 @@ namespace transport.Models.ApplicationModels
         public int IdTankowania { get; set; }
 
         public int IdPracownik { get; set; }
-
-        public Pracownik Pracownicy { get; set; }
+        public virtual Pracownik Pracownik { get; set; }
 
         public int IdPojazd { get; set; }
-
-        public Pojazd Pojazd { get; set; }
+        public virtual Pojazd Pojazd { get; set; }
 
         [Display(Name = "Przebieg podczas tankowania")]
         public int PrzebiegTankow { get; set; }

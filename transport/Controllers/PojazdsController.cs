@@ -35,7 +35,7 @@ namespace transport.Controllers
         {
             var currentuser = await _userManager.GetUserAsync(HttpContext.User);
             var firma = _context.Firmy.Include(f => f.Pojazdy).FirstOrDefault(f => f.UserId == currentuser.Id);
-            var applicationDbContext = _context.Pojazdy.Include(p => p.Firmy).Include(p => p.Pracownicy);
+            var applicationDbContext = _context.Pojazdy.Include(p => p.Firma).Include(p => p.Pracownik);
             
             return View(await applicationDbContext.ToListAsync());
         }
@@ -50,8 +50,8 @@ namespace transport.Controllers
             }
 
             var pojazd = await _context.Pojazdy
-                .Include(p => p.Firmy)
-                .Include(p => p.Pracownicy)
+                .Include(p => p.Firma)
+                .Include(p => p.Pracownik)
                 .SingleOrDefaultAsync(m => m.IdPojazd == id);
             if (pojazd == null)
             {
@@ -78,14 +78,14 @@ namespace transport.Controllers
         [HttpPost]
         [Authorize(Roles = "Firma, Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdPojazd,Firma,PracownikId,Marka,Model,VIN,NrRejestr,DataProd,TachoOdczyt,TachoLegal,DataPrzegl,DataUbez,SpalanieSred,PrzebiegZakup,PrzebiegAktu,PrzebiegSerwis,RodzajKabiny,EmisjaSpalin,Retarder,Aktywny")] Pojazd pojazd)
+        public async Task<IActionResult> Create([Bind("IdPojazd,Firma,IdPracownik,Marka,Model,VIN,NrRejestr,DataProd,TachoOdczyt,TachoLegal,DataPrzegl,DataUbez,SpalanieSred,PrzebiegZakup,PrzebiegAktu,PrzebiegSerwis,RodzajKabiny,EmisjaSpalin,Retarder,Aktywny")] Pojazd pojazd)
         {
             if (ModelState.IsValid)
             {
                 var currentuser = await _userManager.GetUserAsync(HttpContext.User);
                 var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
 
-               
+                pojazd.Firma = firma;
 
                 _context.Add(pojazd);
                 await _context.SaveChangesAsync();
@@ -165,8 +165,8 @@ namespace transport.Controllers
             }
 
             var pojazd = await _context.Pojazdy
-                .Include(p => p.Firmy)
-                .Include(p => p.Pracownicy)
+                .Include(p => p.Firma)
+                .Include(p => p.Pracownik)
                 .SingleOrDefaultAsync(m => m.IdPojazd == id);
             if (pojazd == null)
             {

@@ -16,20 +16,16 @@ namespace transport.Models.ApplicationModels
         public int IdZlecenie { get; set; }
 
         public int IdKontrahent { get; set; }
-
-        public Kontrahent Kontrahent { get; set; }
+        public virtual Kontrahent Kontrahent { get; set; }
 
         public int IdPracownik { get; set; }
-
-        public Pracownik Pracownicy { get; set; }
+        public virtual Pracownik Pracownik { get; set; }
 
         public int IdPojazd { get; set; }
-
-        public Pojazd Pojazd { get; set; }
+        public virtual Pojazd Pojazd { get; set; }
 
         public int IdNaczepa { get; set; }
-
-        public Naczepa Naczepa { get; set; }
+        public virtual Naczepa Naczepa { get; set; }
 
         [DataType(DataType.MultilineText)]
         [Display(Name ="Adres załadunku")]

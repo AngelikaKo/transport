@@ -15,8 +15,8 @@ namespace transport.Models.ApplicationModels
         public int IdPojazd { get; set; }  
 
         public int IdPracownik { get; set; }
-
-        public Pracownik Pracownicy { get; set; }
+        [ForeignKey("IdPracownik")]
+        public virtual Pracownik Pracownik { get; set; }
 
         public string Marka { get; set; }
 
@@ -74,6 +74,9 @@ namespace transport.Models.ApplicationModels
         public List<Zlecenie> Zlecenie { get; set; }
 
         public int IdFirma { get; set; }
-        public Firma Firmy { get; set; }
+        [ForeignKey("IdFirma")]
+        public virtual Firma Firma { get; set; }
+
+
     }
 }

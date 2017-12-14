@@ -15,8 +15,7 @@ namespace transport.Models.ApplicationModels
         public int IdNaczepa { get; set; }
 
         public int IdPracownik { get; set; }
-
-        public Pracownik Pracownicy { get; set; }
+        public virtual Pracownik Pracownik { get; set; }
 
         public string Marka { get; set; }
 
@@ -44,6 +43,6 @@ namespace transport.Models.ApplicationModels
 
         public bool Aktywny { get; set; }
 
-        public List<Zlecenie> Zlecenia { get; set; }
+        public virtual List<Zlecenie> Zlecenia { get; set; }
     }
 }

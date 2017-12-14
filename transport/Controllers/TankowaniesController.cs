@@ -24,7 +24,7 @@ namespace transport.Controllers
         [Authorize(Roles = "Firma")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Tankowania.Include(t => t.Pojazd).Include(t => t.Pracownicy);
+            var applicationDbContext = _context.Tankowania.Include(t => t.Pojazd).Include(t => t.Pracownik);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -39,7 +39,7 @@ namespace transport.Controllers
 
             var tankowanie = await _context.Tankowania
                 .Include(t => t.Pojazd)
-                .Include(t => t.Pracownicy)
+                .Include(t => t.Pracownik)
                 .SingleOrDefaultAsync(m => m.IdTankowania == id);
             if (tankowanie == null)
             {
@@ -145,7 +145,7 @@ namespace transport.Controllers
 
             var tankowanie = await _context.Tankowania
                 .Include(t => t.Pojazd)
-                .Include(t => t.Pracownicy)
+                .Include(t => t.Pracownik)
                 .SingleOrDefaultAsync(m => m.IdTankowania == id);
             if (tankowanie == null)
             {

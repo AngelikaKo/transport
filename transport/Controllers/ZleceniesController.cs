@@ -128,7 +128,7 @@ namespace transport.Controllers
                 .Include(z => z.Kontrahent)
                 .Include(z => z.Naczepa)
                 .Include(z => z.Pojazd)
-                .Include(z => z.Pracownicy)
+                .Include(z => z.Pracownik)
                            select s;
 
             if (!String.IsNullOrEmpty(searchString))
@@ -179,7 +179,7 @@ namespace transport.Controllers
                 .Include(z => z.Kontrahent)
                 .Include(z => z.Naczepa)
                 .Include(z => z.Pojazd)
-                .Include(z => z.Pracownicy)
+                .Include(z => z.Pracownik)
                 .SingleOrDefaultAsync(m => m.IdZlecenie == id);
             if (zlecenie == null)
             {
@@ -295,7 +295,7 @@ namespace transport.Controllers
                 .Include(z => z.Kontrahent)
                 .Include(z => z.Naczepa)
                 .Include(z => z.Pojazd)
-                .Include(z => z.Pracownicy)
+                .Include(z => z.Pracownik)
                 .SingleOrDefaultAsync(m => m.IdZlecenie == id);
             if (zlecenie == null)
             {

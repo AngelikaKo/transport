@@ -24,7 +24,7 @@ namespace transport.Controllers
         [Authorize(Roles = "Firma, Admin, Spedytor")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Naczepy.Include(n => n.Pracownicy);
+            var applicationDbContext = _context.Naczepy.Include(n => n.Pracownik);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -38,7 +38,7 @@ namespace transport.Controllers
             }
 
             var naczepa = await _context.Naczepy
-                .Include(n => n.Pracownicy)
+                .Include(n => n.Pracownik)
                 .SingleOrDefaultAsync(m => m.IdNaczepa == id);
             if (naczepa == null)
             {
@@ -139,7 +139,7 @@ namespace transport.Controllers
             }
 
             var naczepa = await _context.Naczepy
-                .Include(n => n.Pracownicy)
+                .Include(n => n.Pracownik)
                 .SingleOrDefaultAsync(m => m.IdNaczepa == id);
             if (naczepa == null)
             {

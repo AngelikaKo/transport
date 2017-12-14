@@ -23,7 +23,7 @@ namespace transport.Controllers
         // GET: Ogloszenies
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Ogloszenia.Include(o => o.Firmy);
+            var applicationDbContext = _context.Ogloszenia.Include(o => o.Firma);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -36,7 +36,7 @@ namespace transport.Controllers
             }
 
             var ogloszenie = await _context.Ogloszenia
-                .Include(o => o.Firmy)
+                .Include(o => o.Firma)
                 .SingleOrDefaultAsync(m => m.IdOgloszenie == id);
             if (ogloszenie == null)
             {
@@ -137,7 +137,7 @@ namespace transport.Controllers
             }
 
             var ogloszenie = await _context.Ogloszenia
-                .Include(o => o.Firmy)
+                .Include(o => o.Firma)
                 .SingleOrDefaultAsync(m => m.IdOgloszenie == id);
             if (ogloszenie == null)
             {

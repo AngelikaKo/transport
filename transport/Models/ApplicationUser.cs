@@ -60,19 +60,20 @@ namespace transport.Models
 
         public bool Aktywny { get; set; }
 
-        public List<Pojazd> Pojazdy { get; set; }
+        public virtual List<Pojazd> Pojazdy { get; set; }
 
-        public List<Tankowanie> Tankowania { get; set; }
+        public virtual List<Tankowanie> Tankowania { get; set; }
 
-        public List<Zlecenie> Zlecenia { get; set; }
+        public virtual List<Zlecenie> Zlecenia { get; set; }
 
-        public List<Naczepa> Naczepy { get; set; }
+        public virtual List<Naczepa> Naczepy { get; set; }
 
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
 
-        public string FirmaId { get; set; }
+        public int FirmaId { get; set; }
+        [ForeignKey("FirmaId")]
         public virtual Firma Firma { get; set; }
 
     }
@@ -110,13 +111,12 @@ namespace transport.Models
 
         public bool AktywnyF { get; set; }
 
-        public List<Pojazd> Pojazdy { get; set; }
-
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
 
         public virtual ICollection<Pracownik> Pracownicy { get; set; }
+        public virtual ICollection<Pojazd> Pojazdy { get; set; }
 
     }
 }

@@ -40,13 +40,13 @@ namespace transport.Controllers
         public async Task<IActionResult> Index()
         {
             var currentuser = await _userManager.GetUserAsync(HttpContext.User);
-            var firma = _context.Firmy.Include(f => f.Pracownicy).FirstOrDefault(f => f.UserId == currentuser.Id);
+            var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
 
             if (firma != null)
-            {
-                //var pracownicy = _context.Pracownicy.Include(p => p.User).Include(u => u.Firma).Where(p => p.Firma == firma);
-                //return View(await pracownicy.ToListAsync());
-                return View(firma.Pracownicy.ToList());
+            {                
+                var pracownicy = _context.Pracownicy.Where(p => p.FirmaId == firma.IdFirma);
+                return View(await pracownicy.ToListAsync());
+                //return View(firma.Pracownicy.ToList());
             }
             else
             {

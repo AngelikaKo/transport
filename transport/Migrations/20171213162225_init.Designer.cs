@@ -8,8 +8,8 @@ using transport.Data;
 namespace transport.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171130093057_NowaBaza")]
-    partial class NowaBaza
+    [Migration("20171213162225_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -304,7 +304,7 @@ namespace transport.Migrations
 
                     b.Property<string>("NrRejestr");
 
-                    b.Property<int?>("PracownicyPracownikId");
+                    b.Property<int?>("PracownikId");
 
                     b.Property<string>("Rodzaj");
 
@@ -314,7 +314,7 @@ namespace transport.Migrations
 
                     b.HasKey("IdNaczepa");
 
-                    b.HasIndex("PracownicyPracownikId");
+                    b.HasIndex("PracownikId");
 
                     b.ToTable("Naczepy");
                 });
@@ -368,8 +368,6 @@ namespace transport.Migrations
 
                     b.Property<string>("NrRejestr");
 
-                    b.Property<int?>("PracownicyPracownikId");
-
                     b.Property<int>("PrzebiegAktu");
 
                     b.Property<int>("PrzebiegSerwis");
@@ -392,7 +390,7 @@ namespace transport.Migrations
 
                     b.HasIndex("IdFirma");
 
-                    b.HasIndex("PracownicyPracownikId");
+                    b.HasIndex("IdPracownik");
 
                     b.ToTable("Pojazdy");
                 });
@@ -412,7 +410,7 @@ namespace transport.Migrations
 
                     b.Property<decimal>("IloscPaliwa");
 
-                    b.Property<int?>("PracownicyPracownikId");
+                    b.Property<int?>("PracownikId");
 
                     b.Property<int>("PrzebiegTankow");
 
@@ -422,7 +420,7 @@ namespace transport.Migrations
 
                     b.HasIndex("IdPojazd");
 
-                    b.HasIndex("PracownicyPracownikId");
+                    b.HasIndex("PracownikId");
 
                     b.ToTable("Tankowania");
                 });
@@ -456,7 +454,7 @@ namespace transport.Migrations
 
                     b.Property<int>("IdPracownik");
 
-                    b.Property<int?>("PracownicyPracownikId");
+                    b.Property<int?>("PracownikId");
 
                     b.Property<string>("Status");
 
@@ -476,7 +474,7 @@ namespace transport.Migrations
 
                     b.HasIndex("IdPojazd");
 
-                    b.HasIndex("PracownicyPracownikId");
+                    b.HasIndex("PracownikId");
 
                     b.ToTable("Zlecenia");
                 });
@@ -583,9 +581,7 @@ namespace transport.Migrations
 
                     b.Property<DateTime>("DataZatru");
 
-                    b.Property<string>("FirmaId");
-
-                    b.Property<int?>("FirmaIdFirma");
+                    b.Property<int>("FirmaId");
 
                     b.Property<string>("Imie");
 
@@ -605,7 +601,7 @@ namespace transport.Migrations
 
                     b.HasKey("PracownikId");
 
-                    b.HasIndex("FirmaIdFirma");
+                    b.HasIndex("FirmaId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -652,14 +648,14 @@ namespace transport.Migrations
 
             modelBuilder.Entity("transport.Models.ApplicationModels.Naczepa", b =>
                 {
-                    b.HasOne("transport.Models.Pracownik", "Pracownicy")
+                    b.HasOne("transport.Models.Pracownik", "Pracownik")
                         .WithMany("Naczepy")
-                        .HasForeignKey("PracownicyPracownikId");
+                        .HasForeignKey("PracownikId");
                 });
 
             modelBuilder.Entity("transport.Models.ApplicationModels.Ogloszenie", b =>
                 {
-                    b.HasOne("transport.Models.Firma", "Firmy")
+                    b.HasOne("transport.Models.Firma", "Firma")
                         .WithMany()
                         .HasForeignKey("FirmaId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -667,14 +663,14 @@ namespace transport.Migrations
 
             modelBuilder.Entity("transport.Models.ApplicationModels.Pojazd", b =>
                 {
-                    b.HasOne("transport.Models.Firma", "Firmy")
+                    b.HasOne("transport.Models.Firma", "Firma")
                         .WithMany("Pojazdy")
                         .HasForeignKey("IdFirma")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("transport.Models.Pracownik", "Pracownicy")
+                    b.HasOne("transport.Models.Pracownik", "Pracownik")
                         .WithMany("Pojazdy")
-                        .HasForeignKey("PracownicyPracownikId");
+                        .HasForeignKey("IdPracownik");
                 });
 
             modelBuilder.Entity("transport.Models.ApplicationModels.Tankowanie", b =>
@@ -684,9 +680,9 @@ namespace transport.Migrations
                         .HasForeignKey("IdPojazd")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("transport.Models.Pracownik", "Pracownicy")
+                    b.HasOne("transport.Models.Pracownik", "Pracownik")
                         .WithMany("Tankowania")
-                        .HasForeignKey("PracownicyPracownikId");
+                        .HasForeignKey("PracownikId");
                 });
 
             modelBuilder.Entity("transport.Models.ApplicationModels.Zlecenie", b =>
@@ -706,9 +702,9 @@ namespace transport.Migrations
                         .HasForeignKey("IdPojazd")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("transport.Models.Pracownik", "Pracownicy")
+                    b.HasOne("transport.Models.Pracownik", "Pracownik")
                         .WithMany("Zlecenia")
-                        .HasForeignKey("PracownicyPracownikId");
+                        .HasForeignKey("PracownikId");
                 });
 
             modelBuilder.Entity("transport.Models.Firma", b =>
@@ -722,7 +718,8 @@ namespace transport.Migrations
                 {
                     b.HasOne("transport.Models.Firma", "Firma")
                         .WithMany("Pracownicy")
-                        .HasForeignKey("FirmaIdFirma");
+                        .HasForeignKey("FirmaId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("transport.Models.ApplicationUser", "User")
                         .WithOne("Pracownik")

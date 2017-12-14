@@ -10,6 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using transport.Models.AccountViewModels;
 using System.ComponentModel;
 using transport.Models.ApplicationModels;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace transport.Data
 {
@@ -42,7 +43,7 @@ namespace transport.Data
                 .Property(b => b.DataDodania)
                 .HasDefaultValueSql("getdate()");
 
-           // builder.Entity<transport.Models.ApplicationModels.Zlecenie>()
+            // builder.Entity<transport.Models.ApplicationModels.Zlecenie>()
             //   .Property(b => b.Status)
             //   .HasDefaultValue("NOWE");
 
@@ -50,6 +51,10 @@ namespace transport.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+
+            builder.Entity<Pojazd>().HasOne(e => e.Pracownik)
+            .WithMany(x => x.Pojazdy).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
+
         }
 
         public DbSet<transport.Models.AccountViewModels.RegisterAdministratorViewModel> RegisterAdministratorViewModel { get; set; }
