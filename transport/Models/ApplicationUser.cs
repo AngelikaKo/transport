@@ -29,6 +29,14 @@ namespace transport.Models
         public string Imie { get; set; }
 
         public string Nazwisko { get; set; }
+                
+        public string GetFullName
+        { get
+            {
+                string fullname = String.Format("{0} {1}", Imie, Nazwisko);
+                return fullname;
+            }
+        }
 
         public string Ulica { get; set; }
 
@@ -117,6 +125,7 @@ namespace transport.Models
 
         public virtual ICollection<Pracownik> Pracownicy { get; set; }
         public virtual ICollection<Pojazd> Pojazdy { get; set; }
+     
 
     }
 }

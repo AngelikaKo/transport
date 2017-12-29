@@ -1,4 +1,4 @@
-@model transport.Models.ApplicationModels.Naczepa
+ï»¿@model transport.Models.ApplicationModels.Naczepa
 
 <font color="white">
 
@@ -15,9 +15,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdNaczepa" />
             <div class="form-group">
-                <label asp-for="IdPracownik" class="control-label col-md-2"></label>
+                <label asp-for="IdPracownik" class="control-label col-md-2">Kierowca</label>
                 <div class="col-md-10">
-                    <select asp-for="IdPracownik" class="form-control" asp-items="ViewBag.IdPracownik"></select>
+                    <select asp-for="IdPracownik" class="form-control" asp-items="ViewBag.GetFullName"></select>
                     <span asp-validation-for="IdPracownik" class="text-danger"></span>
                 </div>
             </div>
@@ -86,7 +86,7 @@
     </form>
 
     <div>
-        <a asp-action="Index">Wróæ do listy</a>
+        <a asp-action="Index">WrÃ³Ä‡ do listy</a>
     </div>
 
     @section Scripts {

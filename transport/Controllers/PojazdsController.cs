@@ -33,11 +33,21 @@ namespace transport.Controllers
         [Authorize(Roles ="Firma, Admin, Spedytor")]
         public async Task<IActionResult> Index()
         {
+
             var currentuser = await _userManager.GetUserAsync(HttpContext.User);
-            var firma = _context.Firmy.Include(f => f.Pojazdy).FirstOrDefault(f => f.UserId == currentuser.Id);
-            var applicationDbContext = _context.Pojazdy.Include(p => p.Firma).Include(p => p.Pracownik);
-            
-            return View(await applicationDbContext.ToListAsync());
+            var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+            if (firma != null)
+            {
+                var pojazdy = _context.Pojazdy.Where(p => p.IdFirma == firma.IdFirma);
+                return View(await pojazdy.ToListAsync());
+                //return View(firma.Pracownicy.ToList());
+            }
+            else
+            {
+                return View(await _context.Pojazdy.ToListAsync());
+            }
+
         }
 
         // GET: Pojazds/Details/5

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace transport.Migrations
 {
-    public partial class init : Migration
+    public partial class init3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -353,10 +353,10 @@ namespace transport.Migrations
                     DataProd = table.Column<DateTime>(nullable: false),
                     DataPrzegl = table.Column<DateTime>(nullable: false),
                     DataUbez = table.Column<DateTime>(nullable: false),
+                    IdFirma = table.Column<int>(nullable: false),
                     IdPracownik = table.Column<int>(nullable: false),
                     Marka = table.Column<string>(nullable: true),
                     NrRejestr = table.Column<string>(nullable: true),
-                    PracownikId = table.Column<int>(nullable: true),
                     Rodzaj = table.Column<string>(nullable: true),
                     Wymiary = table.Column<string>(nullable: true),
                     Wyposazenie = table.Column<string>(nullable: true)
@@ -365,11 +365,17 @@ namespace transport.Migrations
                 {
                     table.PrimaryKey("PK_Naczepy", x => x.IdNaczepa);
                     table.ForeignKey(
-                        name: "FK_Naczepy_Pracownicy_PracownikId",
-                        column: x => x.PracownikId,
+                        name: "FK_Naczepy_Firmy_IdFirma",
+                        column: x => x.IdFirma,
+                        principalTable: "Firmy",
+                        principalColumn: "IdFirma",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Naczepy_Pracownicy_IdPracownik",
+                        column: x => x.IdPracownik,
                         principalTable: "Pracownicy",
                         principalColumn: "PracownikId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -528,9 +534,14 @@ namespace transport.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Naczepy_PracownikId",
+                name: "IX_Naczepy_IdFirma",
                 table: "Naczepy",
-                column: "PracownikId");
+                column: "IdFirma");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Naczepy_IdPracownik",
+                table: "Naczepy",
+                column: "IdPracownik");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ogloszenia_FirmaId",

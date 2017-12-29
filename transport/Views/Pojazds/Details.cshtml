@@ -1,4 +1,4 @@
-@model transport.Models.ApplicationModels.Pojazd
+ï»¿@model transport.Models.ApplicationModels.Pojazd
 
 <font color="white">
 
@@ -6,7 +6,7 @@
         ViewData["Title"] = "Details";
     }
 
-    <h2>Szczegó³y</h2>
+    <h2>SzczegÃ³Å‚y</h2>
 
     <div>
         <h4>Pojazd</h4>
@@ -109,24 +109,15 @@
                 @Html.DisplayFor(model => model.Retarder)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Aktywny)
-            </dt>            
-            <dt>
-                @Html.DisplayNameFor(model => model.Firmy)
+                @Html.DisplayNameFor(model => model.Pracownik)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Firmy.IdFirma)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Pracownicy)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Pracownicy.IdPracownik)
+                @Html.DisplayFor(model => model.Pracownik.GetFullName)
             </dd>
         </dl>
     </div>
     <div>
         <a asp-action="Edit" asp-route-id="@Model.IdPojazd">Edytuj</a> |
-        <a asp-action="Index">Wróæ do listy</a>
+        <a asp-action="Index">WrÃ³Ä‡ do listy</a>
     </div>
 </font>

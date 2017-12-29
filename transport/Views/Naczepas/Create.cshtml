@@ -1,4 +1,4 @@
-@model transport.Models.ApplicationModels.Naczepa
+ï»¿@model transport.Models.ApplicationModels.Naczepa
 
 <font color="white">
 
@@ -6,7 +6,7 @@
         ViewData["Title"] = "Create";
     }
 
-    <h2>Dodaj now¹ naczepê</h2>
+    <h2>Dodaj nowÄ… naczepÄ™</h2>
 
     <form asp-action="Create">
         <div class="form-horizontal">
@@ -14,9 +14,9 @@
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="IdPracownik" class="col-md-2 control-label"></label>
+                <label asp-for="IdPracownik" class="col-md-2 control-label">Kierowca</label>
                 <div class="col-md-10">
-                    <select asp-for="IdPracownik" class="form-control" asp-items="ViewBag.IdPracownik"></select>
+                    <select asp-for="IdPracownik" class="form-control" asp-items="ViewBag.FullNamee"></select>
                 </div>
             </div>
             <div class="form-group">
@@ -84,7 +84,7 @@
     </form>
 
     <div>
-        <a asp-action="Index">Wróæ do listy</a>
+        <a asp-action="Index">WrÃ³Ä‡ do listy</a>
     </div>
 
     @section Scripts {

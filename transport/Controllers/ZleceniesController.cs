@@ -217,7 +217,10 @@ namespace transport.Controllers
             ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa", zlecenie.IdKontrahent);
             ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr", zlecenie.IdNaczepa);
             ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr", zlecenie.IdPojazd);
-            ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie", zlecenie.IdPracownik);
+            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko}),
+           "PracownikId", "FullName", null);
             return View(zlecenie);
         }
 
@@ -238,7 +241,10 @@ namespace transport.Controllers
             ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa", zlecenie.IdKontrahent);
             ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr", zlecenie.IdNaczepa);
             ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr", zlecenie.IdPojazd);
-            ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie", zlecenie.IdPracownik);
+            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko}),
+            "PracownikId", "FullName", null);
             return View(zlecenie);
         }
 

@@ -1,4 +1,4 @@
-@model IEnumerable<transport.Models.ApplicationModels.Tankowanie>
+ï»¿@model IEnumerable<transport.Models.ApplicationModels.Tankowanie>
 
 <font color="white">
 
@@ -27,7 +27,7 @@
                     @Html.DisplayNameFor(model => model.Pojazd)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Pracownicy)
+                    @Html.DisplayNameFor(model => model.Pracownik)
                 </th>
                 <th></th>
             </tr>
@@ -52,12 +52,12 @@
                         @Html.DisplayFor(modelItem => item.Pojazd.IdPojazd)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Pracownicy.PracownikId)
+                        @Html.DisplayFor(modelItem => item.Pracownik.PracownikId)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.IdTankowania">Edytuj</a> |
-                        <a asp-action="Details" asp-route-id="@item.IdTankowania">Wiêcej</a> |
-                        <a asp-action="Delete" asp-route-id="@item.IdTankowania">Usuñ</a>
+                        <a asp-action="Details" asp-route-id="@item.IdTankowania">WiÄ™cej</a> |
+                        <a asp-action="Delete" asp-route-id="@item.IdTankowania">UsuÅ„</a>
                     </td>
                 </tr>
             }

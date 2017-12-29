@@ -8,15 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using transport.Data;
 using transport.Models.ApplicationModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using transport.Models;
 
 namespace transport.Controllers
 {
     public class NaczepasController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
 
-        public NaczepasController(ApplicationDbContext context)
+        public NaczepasController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            ApplicationDbContext context)            
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
             _context = context;    
         }
 
@@ -24,8 +33,21 @@ namespace transport.Controllers
         [Authorize(Roles = "Firma, Admin, Spedytor")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Naczepy.Include(n => n.Pracownik);
-            return View(await applicationDbContext.ToListAsync());
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+            if (firma != null)
+            {
+                var naczepy = _context.Naczepy.Where(p => p.IdFirma == firma.IdFirma);
+                return View(await naczepy.ToListAsync());
+                //return View(firma.Pracownicy.ToList());
+            }
+            else
+            {
+                return View(await _context.Pojazdy.ToListAsync());
+            }
+           // var applicationDbContext = _context.Naczepy.Include(n => n.Pracownik);
+           // return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Naczepas/Details/5
@@ -52,7 +74,10 @@ namespace transport.Controllers
         [Authorize(Roles = "Firma, Admin")]
         public IActionResult Create()
         {
-            ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "IdPracownik");
+            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko}),
+            "PracownikId", "FullName");           
             return View();
         }
 
@@ -70,7 +95,10 @@ namespace transport.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "IdPracownik", naczepa.IdPracownik);
+            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko}),
+            "PracownikId", "FullName", null);
             return View(naczepa);
         }
 

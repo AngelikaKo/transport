@@ -297,13 +297,13 @@ namespace transport.Migrations
 
                     b.Property<DateTime>("DataUbez");
 
+                    b.Property<int>("IdFirma");
+
                     b.Property<int>("IdPracownik");
 
                     b.Property<string>("Marka");
 
                     b.Property<string>("NrRejestr");
-
-                    b.Property<int?>("PracownikId");
 
                     b.Property<string>("Rodzaj");
 
@@ -313,7 +313,9 @@ namespace transport.Migrations
 
                     b.HasKey("IdNaczepa");
 
-                    b.HasIndex("PracownikId");
+                    b.HasIndex("IdFirma");
+
+                    b.HasIndex("IdPracownik");
 
                     b.ToTable("Naczepy");
                 });
@@ -647,9 +649,15 @@ namespace transport.Migrations
 
             modelBuilder.Entity("transport.Models.ApplicationModels.Naczepa", b =>
                 {
+                    b.HasOne("transport.Models.Firma", "Firma")
+                        .WithMany()
+                        .HasForeignKey("IdFirma")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("transport.Models.Pracownik", "Pracownik")
                         .WithMany("Naczepy")
-                        .HasForeignKey("PracownikId");
+                        .HasForeignKey("IdPracownik")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("transport.Models.ApplicationModels.Ogloszenie", b =>
