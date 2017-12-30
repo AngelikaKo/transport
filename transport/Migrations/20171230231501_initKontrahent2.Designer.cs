@@ -8,8 +8,8 @@ using transport.Data;
 namespace transport.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171230112051_nowyInit")]
-    partial class nowyInit
+    [Migration("20171230231501_initKontrahent2")]
+    partial class initKontrahent2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -262,6 +262,8 @@ namespace transport.Migrations
 
                     b.Property<string>("EMail");
 
+                    b.Property<int>("IdFirma");
+
                     b.Property<string>("Kod");
 
                     b.Property<string>("Miasto");
@@ -281,6 +283,8 @@ namespace transport.Migrations
                     b.Property<string>("Wlasciciel");
 
                     b.HasKey("IdKontrahent");
+
+                    b.HasIndex("IdFirma");
 
                     b.ToTable("Kontrahenci");
                 });
@@ -648,6 +652,14 @@ namespace transport.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("transport.Models.ApplicationModels.Kontrahent", b =>
+                {
+                    b.HasOne("transport.Models.Firma", "Firma")
+                        .WithMany("Kontrahenci")
+                        .HasForeignKey("IdFirma")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("transport.Models.ApplicationModels.Naczepa", b =>
                 {
                     b.HasOne("transport.Models.Firma", "Firma")
@@ -695,14 +707,13 @@ namespace transport.Migrations
             modelBuilder.Entity("transport.Models.ApplicationModels.Zlecenie", b =>
                 {
                     b.HasOne("transport.Models.ApplicationModels.Kontrahent", "Kontrahent")
-                        .WithMany("Zlecenia")
+                        .WithMany("Zlecenie")
                         .HasForeignKey("IdKontrahent")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("transport.Models.ApplicationModels.Naczepa", "Naczepa")
                         .WithMany("Zlecenia")
-                        .HasForeignKey("IdNaczepa")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("IdNaczepa");
 
                     b.HasOne("transport.Models.ApplicationModels.Pojazd", "Pojazd")
                         .WithMany("Zlecenie")

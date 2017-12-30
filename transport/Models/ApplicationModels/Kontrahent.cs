@@ -12,7 +12,7 @@ namespace transport.Models.ApplicationModels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdKontrahent { get; set; }
-
+                
         [Display(Name = "Nazwa firmy")]
         public string Nazwa { get; set; }
 
@@ -43,6 +43,10 @@ namespace transport.Models.ApplicationModels
 
         public bool Aktywny { get; set; }
 
-        public List<Zlecenie> Zlecenia { get; set; }
+        public List<Zlecenie> Zlecenie { get; set; }
+
+        public int IdFirma { get; set; }
+        [ForeignKey("IdFirma")]
+        public virtual Firma Firma { get; set; }
     }
 }

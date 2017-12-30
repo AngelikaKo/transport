@@ -61,11 +61,20 @@ namespace transport.Data
             builder.Entity<Zlecenie>().HasOne(e => e.Pojazd)
             .WithMany(x => x.Zlecenie).OnDelete(DeleteBehavior.Restrict);
 
+           // builder.Entity<Kontrahent>().HasOne(e => e.Zlecenie)
+           //.WithMany(x => x.Kontrahenci).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
+
             builder.Entity<Pojazd>().HasOne(e => e.Pracownik)
             .WithMany(x => x.Pojazdy).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
 
             builder.Entity<Naczepa>().HasOne(e => e.Pracownik)
            .WithMany(x => x.Naczepy).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
+
+          //  builder.Entity<Kontrahent>().HasOne(e => e.Pracownik)
+         // .WithMany(x => x.Kontrahenci).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
+
+            builder.Entity<Zlecenie>().HasOne(e => e.Naczepa)
+           .WithMany(x => x.Zlecenia).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
 
         }
 

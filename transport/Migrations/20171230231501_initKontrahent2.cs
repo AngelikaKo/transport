@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace transport.Migrations
 {
-    public partial class nowyInit : Migration
+    public partial class initKontrahent2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -116,29 +116,6 @@ namespace transport.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RegisterSpedytorViewModel", x => x.IdPracownik);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Kontrahenci",
-                columns: table => new
-                {
-                    IdKontrahent = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Aktywny = table.Column<bool>(nullable: false),
-                    EMail = table.Column<string>(nullable: true),
-                    Kod = table.Column<string>(nullable: true),
-                    Miasto = table.Column<string>(nullable: true),
-                    NIP = table.Column<string>(nullable: true),
-                    Nazwa = table.Column<string>(nullable: true),
-                    Regon = table.Column<string>(nullable: true),
-                    Telefon = table.Column<string>(nullable: true),
-                    Typ = table.Column<string>(nullable: true),
-                    Ulica = table.Column<string>(nullable: true),
-                    Wlasciciel = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Kontrahenci", x => x.IdKontrahent);
                 });
 
             migrationBuilder.CreateTable(
@@ -279,6 +256,36 @@ namespace transport.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Kontrahenci",
+                columns: table => new
+                {
+                    IdKontrahent = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Aktywny = table.Column<bool>(nullable: false),
+                    EMail = table.Column<string>(nullable: true),
+                    IdFirma = table.Column<int>(nullable: false),
+                    Kod = table.Column<string>(nullable: true),
+                    Miasto = table.Column<string>(nullable: true),
+                    NIP = table.Column<string>(nullable: true),
+                    Nazwa = table.Column<string>(nullable: true),
+                    Regon = table.Column<string>(nullable: true),
+                    Telefon = table.Column<string>(nullable: true),
+                    Typ = table.Column<string>(nullable: true),
+                    Ulica = table.Column<string>(nullable: true),
+                    Wlasciciel = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Kontrahenci", x => x.IdKontrahent);
+                    table.ForeignKey(
+                        name: "FK_Kontrahenci_Firmy_IdFirma",
+                        column: x => x.IdFirma,
+                        principalTable: "Firmy",
+                        principalColumn: "IdFirma",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -492,7 +499,7 @@ namespace transport.Migrations
                         column: x => x.IdNaczepa,
                         principalTable: "Naczepy",
                         principalColumn: "IdNaczepa",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Zlecenia_Pojazdy_IdPojazd",
                         column: x => x.IdPojazd,
@@ -532,6 +539,11 @@ namespace transport.Migrations
                 name: "IX_AspNetUserRoles_RoleId",
                 table: "AspNetUserRoles",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Kontrahenci_IdFirma",
+                table: "Kontrahenci",
+                column: "IdFirma");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Naczepy_IdFirma",

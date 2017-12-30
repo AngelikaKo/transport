@@ -75,7 +75,7 @@ namespace transport.Models
         public virtual List<Zlecenie> Zlecenia { get; set; }
 
         public virtual List<Naczepa> Naczepy { get; set; }
-
+                
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
@@ -125,7 +125,7 @@ namespace transport.Models
 
         public virtual ICollection<Pracownik> Pracownicy { get; set; }
         public virtual ICollection<Pojazd> Pojazdy { get; set; }
-     
+        public virtual ICollection<Kontrahent> Kontrahenci { get; set; }
 
     }
 }
