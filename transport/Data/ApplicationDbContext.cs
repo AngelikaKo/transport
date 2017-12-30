@@ -53,7 +53,19 @@ namespace transport.Data
             // Add your customizations after calling base.OnModelCreating(builder);
 
             builder.Entity<Pojazd>().HasOne(e => e.Pracownik)
+           .WithMany(x => x.Pojazdy).OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Naczepa>().HasOne(e => e.Pracownik)
+            .WithMany(x => x.Naczepy).OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Zlecenie>().HasOne(e => e.Pojazd)
+            .WithMany(x => x.Zlecenie).OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Pojazd>().HasOne(e => e.Pracownik)
             .WithMany(x => x.Pojazdy).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
+
+            builder.Entity<Naczepa>().HasOne(e => e.Pracownik)
+           .WithMany(x => x.Naczepy).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
 
         }
 

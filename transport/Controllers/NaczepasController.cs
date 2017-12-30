@@ -87,10 +87,15 @@ namespace transport.Controllers
         [HttpPost]
         [Authorize(Roles = "Firma, Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdNaczepa,IdPracownik,Marka,Rodzaj,NrRejestr,DataProd,Wymiary,DataPrzegl,DataUbez,Wyposazenie,Aktywny")] Naczepa naczepa)
+        public async Task<IActionResult> Create([Bind("IdNaczepa,Firma,IdPracownik,Marka,Rodzaj,NrRejestr,DataProd,Wymiary,DataPrzegl,DataUbez,Wyposazenie,Aktywny")] Naczepa naczepa)
         {
             if (ModelState.IsValid)
             {
+                var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+                var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+                naczepa.Firma = firma;
+
                 _context.Add(naczepa);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -100,6 +105,8 @@ namespace transport.Controllers
             FullName = s.Imie + " " + s.Nazwisko}),
             "PracownikId", "FullName", null);
             return View(naczepa);
+
+            
         }
 
         // GET: Naczepas/Edit/5
@@ -126,7 +133,7 @@ namespace transport.Controllers
         [HttpPost]
         [Authorize(Roles = "Firma, Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdNaczepa,IdPracownik,Marka,Rodzaj,NrRejestr,DataProd,Wymiary,DataPrzegl,DataUbez,Wyposazenie,Aktywny")] Naczepa naczepa)
+        public async Task<IActionResult> Edit(int id, [Bind("IdNaczepa,Firma,IdPracownik,Marka,Rodzaj,NrRejestr,DataProd,Wymiary,DataPrzegl,DataUbez,Wyposazenie,Aktywny")] Naczepa naczepa)
         {
             if (id != naczepa.IdNaczepa)
             {

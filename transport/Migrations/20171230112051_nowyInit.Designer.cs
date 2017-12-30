@@ -8,8 +8,8 @@ using transport.Data;
 namespace transport.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171229114605_init3")]
-    partial class init3
+    [Migration("20171230112051_nowyInit")]
+    partial class nowyInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -657,8 +657,7 @@ namespace transport.Migrations
 
                     b.HasOne("transport.Models.Pracownik", "Pracownik")
                         .WithMany("Naczepy")
-                        .HasForeignKey("IdPracownik")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("IdPracownik");
                 });
 
             modelBuilder.Entity("transport.Models.ApplicationModels.Ogloszenie", b =>
@@ -707,8 +706,7 @@ namespace transport.Migrations
 
                     b.HasOne("transport.Models.ApplicationModels.Pojazd", "Pojazd")
                         .WithMany("Zlecenie")
-                        .HasForeignKey("IdPojazd")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("IdPojazd");
 
                     b.HasOne("transport.Models.Pracownik", "Pracownik")
                         .WithMany("Zlecenia")

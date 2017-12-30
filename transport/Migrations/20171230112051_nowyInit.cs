@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace transport.Migrations
 {
-    public partial class init3 : Migration
+    public partial class nowyInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -375,7 +375,7 @@ namespace transport.Migrations
                         column: x => x.IdPracownik,
                         principalTable: "Pracownicy",
                         principalColumn: "PracownikId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -498,7 +498,7 @@ namespace transport.Migrations
                         column: x => x.IdPojazd,
                         principalTable: "Pojazdy",
                         principalColumn: "IdPojazd",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Zlecenia_Pracownicy_PracownikId",
                         column: x => x.PracownikId,

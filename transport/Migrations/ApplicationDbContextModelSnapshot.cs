@@ -656,8 +656,7 @@ namespace transport.Migrations
 
                     b.HasOne("transport.Models.Pracownik", "Pracownik")
                         .WithMany("Naczepy")
-                        .HasForeignKey("IdPracownik")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("IdPracownik");
                 });
 
             modelBuilder.Entity("transport.Models.ApplicationModels.Ogloszenie", b =>
@@ -706,8 +705,7 @@ namespace transport.Migrations
 
                     b.HasOne("transport.Models.ApplicationModels.Pojazd", "Pojazd")
                         .WithMany("Zlecenie")
-                        .HasForeignKey("IdPojazd")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("IdPojazd");
 
                     b.HasOne("transport.Models.Pracownik", "Pracownik")
                         .WithMany("Zlecenia")
