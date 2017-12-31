@@ -1,4 +1,4 @@
-@model transport.Models.ApplicationModels.Zlecenie
+ï»¿@model transport.Models.ApplicationModels.Zlecenie
 
 <font color="white">
 
@@ -6,9 +6,9 @@
         ViewData["Title"] = "Delete";
     }
 
-    <h2>Usuñ</h2>
+    <h2>UsuÅ„</h2>
 
-    <h3>Czy napewno chcesz usun¹æ to zlecenie?</h3>
+    <h3>Czy napewno chcesz usunÄ…Ä‡ to zlecenie?</h3>
     <div>
         <h4>Zlecenie</h4>
         <hr />
@@ -99,17 +99,17 @@
                 @Html.DisplayFor(model => model.Pojazd.IdPojazd)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Pracownicy)
+                @Html.DisplayNameFor(model => model.IdPracownik)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Pracownicy.IdPracownik)
+                @Html.DisplayFor(model => model.IdPracownik)
             </dd>
         </dl>
 
         <form asp-action="Delete">
             <div class="form-actions no-color">
-                <input type="submit" value="Usuñ" class="btn btn-default" /> |
-                <a asp-action="Index">Wróæ do listy</a>
+                <input type="submit" value="UsuÅ„" class="btn btn-default" /> |
+                <a asp-action="Index">WrÃ³Ä‡ do listy</a>
             </div>
         </form>
     </div>

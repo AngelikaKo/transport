@@ -1,4 +1,4 @@
-@model transport.Models.ApplicationModels.Zlecenie
+ï»¿@model transport.Models.ApplicationModels.Zlecenie
 
 <font color="white">
 
@@ -6,7 +6,7 @@
         ViewData["Title"] = "Details";
     }
 
-    <h2>Szczegó³y</h2>
+    <h2>SzczegÃ³Å‚y</h2>
 
     <div>
         <h4>Zlecenie</h4>
@@ -91,15 +91,15 @@
                 @Html.DisplayFor(model => model.Pojazd.IdPojazd)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Pracownicy)
+                @Html.DisplayNameFor(model => model.IdPracownik)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Pracownicy.IdPracownik)
+                @Html.DisplayFor(model => model.IdPracownik)
             </dd>
         </dl>
     </div>
     <div>
         <a asp-action="Edit" asp-route-id="@Model.IdZlecenie">Edytuj</a> |
-        <a asp-action="Index">Wróæ do listy</a>
+        <a asp-action="Index">WrÃ³Ä‡ do listy</a>
     </div>
 </font>

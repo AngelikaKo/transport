@@ -19,6 +19,7 @@ namespace transport.Models.ApplicationModels
         public virtual Kontrahent Kontrahent { get; set; }
 
         public int IdPracownik { get; set; }
+        [ForeignKey("IdPracownik")]
         public virtual Pracownik Pracownik { get; set; }
 
         public int IdPojazd { get; set; }
@@ -70,5 +71,9 @@ namespace transport.Models.ApplicationModels
         public string Status { get; set; }
 
         public bool Aktywny { get; set; }
+
+        public int IdFirma { get; set; }
+        [ForeignKey("IdFirma")]
+        public virtual Firma Firma { get; set; }
     }
 }

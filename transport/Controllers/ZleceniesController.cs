@@ -9,15 +9,24 @@ using transport.Data;
 using transport.Models.ApplicationModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Identity;
+using transport.Models;
 
 namespace transport.Controllers
 {
     public class ZleceniesController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
 
-        public ZleceniesController(ApplicationDbContext context)
+        public ZleceniesController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            ApplicationDbContext context)
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
             _context = context;    
         }
 
@@ -118,20 +127,28 @@ namespace transport.Controllers
         [Authorize(Roles = "Firma, Kierowca, Spedytor")]
         public async Task<IActionResult> Index(int? id, string sortOrder, string searchString)
         {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "status_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date" ;
             ViewData["DateSortParm2"] = sortOrder == "Date2" ? "date_desc2" : "Date2";
             ViewData["CurrentFilter"] = searchString;
 
-            var noweZlec = from s in _context.Zlecenia
+            if (firma != null)
+            { 
+
+                var noweZlec = from s in _context.Zlecenia.Where(p => p.IdFirma == firma.IdFirma)
 
                 .Include(z => z.Kontrahent)
                 .Include(z => z.Naczepa)
                 .Include(z => z.Pojazd)
                 .Include(z => z.Pracownik)
                            select s;
-
-            if (!String.IsNullOrEmpty(searchString))
+           
+                
+                
+                if (!String.IsNullOrEmpty(searchString))
             {
                 noweZlec = noweZlec.Where(s => s.Status.Contains(searchString)
                 || s.WagaTow.Contains(searchString)
@@ -162,9 +179,13 @@ namespace transport.Controllers
                     break;
             }
 
-            
-            return View(await noweZlec.ToListAsync());
-            
+
+                return View(await noweZlec.ToListAsync());            
+            }
+            else
+            {
+                return View(await _context.Pojazdy.ToListAsync());
+            }
         }
 
         // GET: Zlecenies/Details/5
@@ -206,10 +227,15 @@ namespace transport.Controllers
         [HttpPost]
         [Authorize(Roles = "Firma, Spedytor")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdZlecenie,IdKontrahent,IdPracownik,IdPojazd,IdNaczepa,AdresOdbioru,AdresDosta,DataZalad,GodzZalad,DataRozl,GodzRozl,Uwagi,DaneTowar,WagaTow,WartoscNetto,Aktywny,Waluta,Status")] Zlecenie zlecenie)
+        public async Task<IActionResult> Create([Bind("IdZlecenie,Firma,IdKontrahent,IdPracownik,IdPojazd,IdNaczepa,AdresOdbioru,AdresDosta,DataZalad,GodzZalad,DataRozl,GodzRozl,Uwagi,DaneTowar,WagaTow,WartoscNetto,Aktywny,Waluta,Status")] Zlecenie zlecenie)
         {
             if (ModelState.IsValid)
             {
+                var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+                var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+                zlecenie.Firma = firma;
+
                 _context.Add(zlecenie);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -217,10 +243,11 @@ namespace transport.Controllers
             ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa", zlecenie.IdKontrahent);
             ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr", zlecenie.IdNaczepa);
             ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr", zlecenie.IdPojazd);
-            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
-            PracownikId = s.PracownikId,
-            FullName = s.Imie + " " + s.Nazwisko}),
-           "PracownikId", "FullName", null);
+            //ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            // PracownikId = s.PracownikId,
+            // FullName = s.Imie + " " + s.Nazwisko}),
+            // "PracownikId", "FullName", null);
+           // ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie", zlecenie.IdPracownik);
             return View(zlecenie);
         }
 
@@ -254,7 +281,7 @@ namespace transport.Controllers
         [HttpPost]
         [Authorize(Roles = "Firma, Spedytor")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdZlecenie,IdKontrahent,IdPracownik,IdPojazd,IdNaczepa,AdresOdbioru,AdresDosta,DataZalad,GodzZalad,DataRozl,GodzRozl,Uwagi,DaneTowar,WagaTow,WartoscNetto,Aktywny,Waluta,Status")] Zlecenie zlecenie)
+        public async Task<IActionResult> Edit(int id, [Bind("IdZlecenie,Firma,IdKontrahent,IdPracownik,IdPojazd,IdNaczepa,AdresOdbioru,AdresDosta,DataZalad,GodzZalad,DataRozl,GodzRozl,Uwagi,DaneTowar,WagaTow,WartoscNetto,Aktywny,Waluta,Status")] Zlecenie zlecenie)
         {
             if (id != zlecenie.IdZlecenie)
             {

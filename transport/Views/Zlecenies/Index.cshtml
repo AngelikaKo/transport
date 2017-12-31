@@ -1,4 +1,4 @@
-@model IEnumerable<transport.Models.ApplicationModels.Zlecenie>
+ï»¿@model IEnumerable<transport.Models.ApplicationModels.Zlecenie>
 
 <font color="white">
 
@@ -17,7 +17,7 @@
             <p>
                 Szukaj:<font color="black"> <input type="text" name="SearchString" value="@ViewData["currentFilter"]" /></font>
                 <input type="submit" value="OK" class="btn btn-default" /> |
-                <a asp-action="Index">Wróæ do pe³nej listy</a>
+                <a asp-action="Index">WrÃ³Ä‡ do peÅ‚nej listy</a>
             </p>
         </div>
     </form>
@@ -107,7 +107,7 @@
                     <td>
 @if (User.IsInRole("Kierowca"))
 {
-                        <a asp-action="Akceptuje" asp-route-id="@item.IdZlecenie">Szczegó³y</a>
+                        <a asp-action="Akceptuje" asp-route-id="@item.IdZlecenie">SzczegÃ³Å‚y</a>
 
                         <a asp-action="Trasa" asp-route-id="@item.IdZlecenie">| trasa</a>
     @ViewBag.MyUrl;
@@ -117,9 +117,9 @@ else
 {
                         <a asp-action="Edit" asp-route-id="@item.IdZlecenie">Edytuj</a>
 
-                        <a asp-action="Details" asp-route-id="@item.IdZlecenie">| Wiêcej </a>
+                        <a asp-action="Details" asp-route-id="@item.IdZlecenie">| WiÄ™cej </a>
 
-                        <a asp-action="Delete" asp-route-id="@item.IdZlecenie">| Usuñ</a>
+                        <a asp-action="Delete" asp-route-id="@item.IdZlecenie">| UsuÅ„</a>
                         <a asp-action="Trasa" asp-route-id="@item.IdZlecenie">| trasa</a>}
                     </td>
                 </tr>

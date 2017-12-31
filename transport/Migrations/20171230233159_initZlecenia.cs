@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace transport.Migrations
 {
-    public partial class initKontrahent2 : Migration
+    public partial class initZlecenia : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -474,11 +474,11 @@ namespace transport.Migrations
                     DataZalad = table.Column<DateTime>(nullable: false),
                     GodzRozl = table.Column<DateTime>(nullable: false),
                     GodzZalad = table.Column<DateTime>(nullable: false),
+                    IdFirma = table.Column<int>(nullable: false),
                     IdKontrahent = table.Column<int>(nullable: false),
                     IdNaczepa = table.Column<int>(nullable: false),
                     IdPojazd = table.Column<int>(nullable: false),
                     IdPracownik = table.Column<int>(nullable: false),
-                    PracownikId = table.Column<int>(nullable: true),
                     Status = table.Column<string>(nullable: true),
                     Uwagi = table.Column<string>(nullable: true),
                     WagaTow = table.Column<string>(nullable: true),
@@ -488,6 +488,12 @@ namespace transport.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Zlecenia", x => x.IdZlecenie);
+                    table.ForeignKey(
+                        name: "FK_Zlecenia_Firmy_IdFirma",
+                        column: x => x.IdFirma,
+                        principalTable: "Firmy",
+                        principalColumn: "IdFirma",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Zlecenia_Kontrahenci_IdKontrahent",
                         column: x => x.IdKontrahent,
@@ -507,8 +513,8 @@ namespace transport.Migrations
                         principalColumn: "IdPojazd",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Zlecenia_Pracownicy_PracownikId",
-                        column: x => x.PracownikId,
+                        name: "FK_Zlecenia_Pracownicy_IdPracownik",
+                        column: x => x.IdPracownik,
                         principalTable: "Pracownicy",
                         principalColumn: "PracownikId",
                         onDelete: ReferentialAction.Restrict);
@@ -581,6 +587,11 @@ namespace transport.Migrations
                 column: "PracownikId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Zlecenia_IdFirma",
+                table: "Zlecenia",
+                column: "IdFirma");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Zlecenia_IdKontrahent",
                 table: "Zlecenia",
                 column: "IdKontrahent");
@@ -596,9 +607,9 @@ namespace transport.Migrations
                 column: "IdPojazd");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Zlecenia_PracownikId",
+                name: "IX_Zlecenia_IdPracownik",
                 table: "Zlecenia",
-                column: "PracownikId");
+                column: "IdPracownik");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
