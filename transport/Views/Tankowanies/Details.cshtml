@@ -1,60 +1,53 @@
-@model transport.Models.ApplicationModels.Tankowanie
+﻿@model transport.Models.ApplicationModels.Tankowanie
 
-@{
-    ViewData["Title"] = "Details";
-}
+<font color="white">
+    @{
+        ViewData["Title"] = "Details";
+    }
+    <h2>Szczegóły tankowania</h2>
+    <div>
 
-<h2>Details</h2>
-
-<div>
-    <h4>Tankowanie</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.PrzebiegTankow)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PrzebiegTankow)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IloscPaliwa)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IloscPaliwa)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.WartoscPaliwa)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WartoscPaliwa)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataTank)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DataTank)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Aktywny)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Aktywny)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Pojazd)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Pojazd.IdPojazd)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Pracownicy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Pracownicy.IdPracownik)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.IdTankowania">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PrzebiegTankow)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PrzebiegTankow)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IloscPaliwa)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IloscPaliwa)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.WartoscPaliwa)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.WartoscPaliwa)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataTank)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataTank)
+            </dd>                      
+            <dt>
+                @Html.DisplayNameFor(model => model.Pojazd)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Pojazd.IdPojazd)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IdPracownik)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IdPracownik)
+            </dd>
+        </dl>
+    </div>
+    <div>       
+        <a asp-action="Index">Wstecz</a>
+    </div>
+</font>

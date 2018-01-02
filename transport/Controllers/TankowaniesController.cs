@@ -73,7 +73,7 @@ namespace transport.Controllers
         }
 
         // GET: Tankowanies/Create
-        [Authorize(Roles = "Firma, Kierowca")]
+        [Authorize(Roles = "Kierowca")]
         public IActionResult Create()
         {
             ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "IdPojazd");
@@ -85,22 +85,23 @@ namespace transport.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Firma, Kierowca")]
+        [Authorize(Roles = "Kierowca")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdTankowania,Firma,Pracownik,IdPojazd,PrzebiegTankow,IloscPaliwa,WartoscPaliwa,DataTank,Aktywny")] Tankowanie tankowanie)
+        public async Task<IActionResult> Create([Bind("IdTankowania,IdFirma,Pracownik,IdPojazd,PrzebiegTankow,IloscPaliwa,WartoscPaliwa,DataTank,Aktywny")] Tankowanie tankowanie)
         {
             if (ModelState.IsValid)
             {
-                var currentuser = await _userManager.GetUserAsync(HttpContext.User);
-                var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+                var currentuser = await _userManager.GetUserAsync(HttpContext.User);                
                 var pracownik = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
-                
-                tankowanie.Firma = firma;
+                //var firma = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+
+                tankowanie.IdFirma = pracownik.FirmaId;
                 tankowanie.Pracownik = pracownik;
               
                 _context.Add(tankowanie);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
             ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "IdPojazd", tankowanie.IdPojazd);
            // ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "IdPracownik", tankowanie.IdPracownik);
@@ -108,7 +109,7 @@ namespace transport.Controllers
         }
 
         // GET: Tankowanies/Edit/5
-        [Authorize(Roles = "Firma")]
+        [Authorize(Roles = "Firma, Kierowca")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

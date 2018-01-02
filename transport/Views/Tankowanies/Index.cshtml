@@ -12,54 +12,35 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.PrzebiegTankow)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IloscPaliwa)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.WartoscPaliwa)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.DataTank)
-                </th>               
-                <th>
-                    @Html.DisplayNameFor(model => model.Pojazd)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Pracownik)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IloscPaliwa)
+                </th>  
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PrzebiegTankow)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IloscPaliwa)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.WartoscPaliwa)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DataTank)
-                    </td>                   
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Pojazd.IdPojazd)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdPracownik)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.IdTankowania">Edytuj</a> |
-                        <a asp-action="Details" asp-route-id="@item.IdTankowania">Więcej</a> |
-                        <a asp-action="Delete" asp-route-id="@item.IdTankowania">Usuń</a>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataTank)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdPracownik)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IloscPaliwa)
+                </td>               
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.IdTankowania">Więcej</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdTankowania">Usuń</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
