@@ -100,6 +100,13 @@
     </div>
     <div>
         <a asp-action="Edit" asp-route-id="@Model.IdZlecenie">Edytuj</a> |
-        <a asp-action="Index">Wróć do listy</a>
+        @if (User.IsInRole("Firma"))
+    {
+        <a asp-action="Index">Wstecz</a> }
+else
+{
+    <a asp-action="IndexSpedytor">Wstecz</a>
+
+}
     </div>
 </font>

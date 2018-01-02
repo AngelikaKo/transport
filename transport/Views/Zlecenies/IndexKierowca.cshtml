@@ -4,10 +4,8 @@
             ViewData["Title"] = "Index";
         }
         <h2>Zlecenia</h2>
-        <p>
-            <a asp-action="CreateSpedytor">Dodaj nowe</a>
-        </p>
-        <form asp-action="IndexSpedytor" method="get">
+        
+        <form asp-action="IndexKierowca" method="get">
             <div class="form-actions">
                 <p>
                     Szukaj:<font color="black"> <input type="text" name="SearchString" value="@ViewData["currentFilter"]" /></font>
@@ -105,7 +103,7 @@
 
                                 <a asp-action="Details" asp-route-id="@item.IdZlecenie">| Więcej </a>
 
-                                <a asp-action="DeleteSpedytor" asp-route-id="@item.IdZlecenie">| Usuń</a>
+                                <a asp-action="Delete" asp-route-id="@item.IdZlecenie">| Usuń</a>
                                 <a asp-action="Trasa" asp-route-id="@item.IdZlecenie">| trasa</a>}
                         </td>
                     </tr>

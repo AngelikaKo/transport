@@ -71,10 +71,10 @@ namespace transport.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa", zlecenie.IdKontrahent);
-            ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr", zlecenie.IdNaczepa);
-            ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr", zlecenie.IdPojazd);
-            ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie", zlecenie.IdPracownik);
+         //   ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa", zlecenie.IdKontrahent);
+         //   ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr", zlecenie.IdNaczepa);
+         //   ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr", zlecenie.IdPojazd);
+           // ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie", zlecenie.IdPracownik);
             return View(zlecenie);
         }
 
@@ -112,12 +112,12 @@ namespace transport.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexKierowca");
             }
-            ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa", zlecenie.IdKontrahent);
-            ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr", zlecenie.IdNaczepa);
-            ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr", zlecenie.IdPojazd);
-            ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie", zlecenie.IdPracownik);
+           // ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa", zlecenie.IdKontrahent);
+          //  ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr", zlecenie.IdNaczepa);
+          //  ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr", zlecenie.IdPojazd);
+           // ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie", zlecenie.IdPracownik);
             return View(zlecenie);
         }
 
@@ -261,7 +261,7 @@ namespace transport.Controllers
             var currentuser = await _userManager.GetUserAsync(HttpContext.User);
             // var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
             var firma = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
-
+            
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "status_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
             ViewData["DateSortParm2"] = sortOrder == "Date2" ? "date_desc2" : "Date2";
@@ -270,7 +270,7 @@ namespace transport.Controllers
             if (firma != null)
             {
 
-                var noweZlec = from s in _context.Zlecenia.Where(p => p.IdFirma == firma.FirmaId)
+                var noweZlec = from s in _context.Zlecenia.Where(p => p.IdFirma == firma.FirmaId && p.IdPracownik == firma.PracownikId)
 
                .Include(z => z.Kontrahent)
                .Include(z => z.Naczepa)
@@ -530,5 +530,42 @@ namespace transport.Controllers
         {
             return _context.Zlecenia.Any(e => e.IdZlecenie == id);
         }
+
+        // GET: Zlecenies/Delete/5
+        [Authorize(Roles = "Firma, Spedytor")]
+        public async Task<IActionResult> DeleteSpedytor(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var zlecenie = await _context.Zlecenia
+                .Include(z => z.Kontrahent)
+                .Include(z => z.Naczepa)
+                .Include(z => z.Pojazd)
+                .Include(z => z.Pracownik)
+                .SingleOrDefaultAsync(m => m.IdZlecenie == id);
+            if (zlecenie == null)
+            {
+                return NotFound();
+            }
+
+            return View(zlecenie);
+        }
+
+        // POST: Zlecenies/Delete/5
+        [HttpPost, ActionName("DeleteSpedytor")]
+        [Authorize(Roles = "Firma, Spedytor")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmedSpedytor(int id)
+        {
+            var zlecenie = await _context.Zlecenia.SingleOrDefaultAsync(m => m.IdZlecenie == id);
+            _context.Zlecenia.Remove(zlecenie);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("IndexSpedytor");
+        }
+
+       
     }
 }

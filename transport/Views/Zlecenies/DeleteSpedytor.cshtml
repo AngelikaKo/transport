@@ -1,13 +1,10 @@
 ﻿@model transport.Models.ApplicationModels.Zlecenie
 
 <font color="white">
-
     @{
         ViewData["Title"] = "Delete";
     }
-
     <h2>Usuń</h2>
-
     <h3>Czy napewno chcesz usunąć to zlecenie?</h3>
     <div>
         <h4>Zlecenie</h4>
@@ -73,13 +70,13 @@
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.WartoscNetto)
-            </dd>    
+            </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Waluta)
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Waluta)
-            </dd> 
+            </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Kontrahent)
             </dt>
@@ -105,18 +102,12 @@
                 @Html.DisplayFor(model => model.IdPracownik)
             </dd>
         </dl>
-
-        <form asp-action="Delete">
+        <form asp-action="DeleteSpedytor">
             <div class="form-actions no-color">
                 <input type="submit" value="Usuń" class="btn btn-default" /> |
-                @if (User.IsInRole("Firma"))
-    {
-            <a asp-action="Index">Wstecz</a> }
-else
-{
-            <a asp-action="IndexSpedytor">Wstecz</a>
+               
+                    <a asp-action="IndexSpedytor">Wstecz</a>
 
-}
             </div>
         </form>
     </div>
