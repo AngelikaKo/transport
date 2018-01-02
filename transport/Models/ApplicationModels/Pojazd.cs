@@ -69,7 +69,7 @@ namespace transport.Models.ApplicationModels
 
         public bool Aktywny { get; set; }
 
-        public List<Tankowanie> Tankowanie { get; set; }
+        public List<Tankowanie> Tankowania { get; set; }
 
         public List<Zlecenie> Zlecenie { get; set; }
 

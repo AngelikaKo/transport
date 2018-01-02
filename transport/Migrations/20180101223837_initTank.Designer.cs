@@ -8,8 +8,8 @@ using transport.Data;
 namespace transport.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171230233159_initZlecenia")]
-    partial class initZlecenia
+    [Migration("20180101223837_initTank")]
+    partial class initTank
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -410,13 +410,13 @@ namespace transport.Migrations
 
                     b.Property<DateTime>("DataTank");
 
+                    b.Property<int>("IdFirma");
+
                     b.Property<int>("IdPojazd");
 
                     b.Property<int>("IdPracownik");
 
                     b.Property<decimal>("IloscPaliwa");
-
-                    b.Property<int?>("PracownikId");
 
                     b.Property<int>("PrzebiegTankow");
 
@@ -424,9 +424,11 @@ namespace transport.Migrations
 
                     b.HasKey("IdTankowania");
 
+                    b.HasIndex("IdFirma");
+
                     b.HasIndex("IdPojazd");
 
-                    b.HasIndex("PracownikId");
+                    b.HasIndex("IdPracownik");
 
                     b.ToTable("Tankowania");
                 });
@@ -696,14 +698,17 @@ namespace transport.Migrations
 
             modelBuilder.Entity("transport.Models.ApplicationModels.Tankowanie", b =>
                 {
+                    b.HasOne("transport.Models.Firma", "Firma")
+                        .WithMany("Tankowania")
+                        .HasForeignKey("IdFirma");
+
                     b.HasOne("transport.Models.ApplicationModels.Pojazd", "Pojazd")
-                        .WithMany("Tankowanie")
-                        .HasForeignKey("IdPojazd")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("Tankowania")
+                        .HasForeignKey("IdPojazd");
 
                     b.HasOne("transport.Models.Pracownik", "Pracownik")
                         .WithMany("Tankowania")
-                        .HasForeignKey("PracownikId");
+                        .HasForeignKey("IdPracownik");
                 });
 
             modelBuilder.Entity("transport.Models.ApplicationModels.Zlecenie", b =>

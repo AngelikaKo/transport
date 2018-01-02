@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace transport.Migrations
 {
-    public partial class initZlecenia : Migration
+    public partial class initTank : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -436,10 +436,10 @@ namespace transport.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Aktywny = table.Column<bool>(nullable: false),
                     DataTank = table.Column<DateTime>(nullable: false),
+                    IdFirma = table.Column<int>(nullable: false),
                     IdPojazd = table.Column<int>(nullable: false),
                     IdPracownik = table.Column<int>(nullable: false),
                     IloscPaliwa = table.Column<decimal>(nullable: false),
-                    PracownikId = table.Column<int>(nullable: true),
                     PrzebiegTankow = table.Column<int>(nullable: false),
                     WartoscPaliwa = table.Column<decimal>(nullable: false)
                 },
@@ -447,14 +447,20 @@ namespace transport.Migrations
                 {
                     table.PrimaryKey("PK_Tankowania", x => x.IdTankowania);
                     table.ForeignKey(
+                        name: "FK_Tankowania_Firmy_IdFirma",
+                        column: x => x.IdFirma,
+                        principalTable: "Firmy",
+                        principalColumn: "IdFirma",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Tankowania_Pojazdy_IdPojazd",
                         column: x => x.IdPojazd,
                         principalTable: "Pojazdy",
                         principalColumn: "IdPojazd",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Tankowania_Pracownicy_PracownikId",
-                        column: x => x.PracownikId,
+                        name: "FK_Tankowania_Pracownicy_IdPracownik",
+                        column: x => x.IdPracownik,
                         principalTable: "Pracownicy",
                         principalColumn: "PracownikId",
                         onDelete: ReferentialAction.Restrict);
@@ -577,14 +583,19 @@ namespace transport.Migrations
                 column: "IdPracownik");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tankowania_IdFirma",
+                table: "Tankowania",
+                column: "IdFirma");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tankowania_IdPojazd",
                 table: "Tankowania",
                 column: "IdPojazd");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tankowania_PracownikId",
+                name: "IX_Tankowania_IdPracownik",
                 table: "Tankowania",
-                column: "PracownikId");
+                column: "IdPracownik");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Zlecenia_IdFirma",

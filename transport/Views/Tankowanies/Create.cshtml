@@ -1,4 +1,4 @@
-@model transport.Models.ApplicationModels.Tankowanie
+﻿@model transport.Models.ApplicationModels.Tankowanie
 
 <font color="white">
 
@@ -12,13 +12,7 @@
         <div class="form-horizontal">
             <h4>Tankowanie</h4>
             <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="IdPracownik" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <select asp-for="IdPracownik" class="form-control" asp-items="ViewBag.IdPracownik"></select>
-                </div>
-            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>           
             <div class="form-group">
                 <label asp-for="IdPojazd" class="col-md-2 control-label"></label>
                 <div class="col-md-10">

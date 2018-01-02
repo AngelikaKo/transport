@@ -127,6 +127,6 @@ namespace transport.Models
         public virtual ICollection<Pojazd> Pojazdy { get; set; }
         public virtual ICollection<Kontrahent> Kontrahenci { get; set; }
         public virtual ICollection<Zlecenie> Zlecenia { get; set; }
-
+        public virtual ICollection<Tankowanie> Tankowania { get; set; }
     }
 }

@@ -75,6 +75,15 @@ namespace transport.Data
 
             builder.Entity<Zlecenie>().HasOne(e => e.Pracownik)
            .WithMany(x => x.Zlecenia).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
+
+            builder.Entity<Tankowanie>().HasOne(e => e.Pracownik)
+           .WithMany(x => x.Tankowania).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
+
+            builder.Entity<Tankowanie>().HasOne(e => e.Firma)
+           .WithMany(x => x.Tankowania).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
+
+            builder.Entity<Tankowanie>().HasOne(e => e.Pojazd)
+           .WithMany(x => x.Tankowania).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
         }
 
         public DbSet<transport.Models.AccountViewModels.RegisterAdministratorViewModel> RegisterAdministratorViewModel { get; set; }

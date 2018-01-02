@@ -8,15 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using transport.Data;
 using transport.Models.ApplicationModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using transport.Models;
 
 namespace transport.Controllers
 {
     public class TankowaniesController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
 
-        public TankowaniesController(ApplicationDbContext context)
+        public TankowaniesController(
+             UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            ApplicationDbContext context)
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
             _context = context;    
         }
 
@@ -24,8 +33,22 @@ namespace transport.Controllers
         [Authorize(Roles = "Firma")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Tankowania.Include(t => t.Pojazd).Include(t => t.Pracownik);
-            return View(await applicationDbContext.ToListAsync());
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+            if (firma != null)
+            {
+                var tankowania = _context.Tankowania.Where(p => p.IdFirma == firma.IdFirma);
+                return View(await tankowania.ToListAsync());
+                //return View(firma.Pracownicy.ToList());
+            }
+            else
+            {
+                return View(await _context.Tankowania.ToListAsync());
+            }
+
+          //  var applicationDbContext = _context.Tankowania.Include(t => t.Pojazd).Include(t => t.Pracownik);
+           // return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Tankowanies/Details/5
@@ -54,7 +77,7 @@ namespace transport.Controllers
         public IActionResult Create()
         {
             ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "IdPojazd");
-            ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "IdPracownik");
+           // ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "IdPracownik");
             return View();
         }
 
@@ -64,16 +87,23 @@ namespace transport.Controllers
         [HttpPost]
         [Authorize(Roles = "Firma, Kierowca")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdTankowania,IdPracownik,IdPojazd,PrzebiegTankow,IloscPaliwa,WartoscPaliwa,DataTank,Aktywny")] Tankowanie tankowanie)
+        public async Task<IActionResult> Create([Bind("IdTankowania,Firma,Pracownik,IdPojazd,PrzebiegTankow,IloscPaliwa,WartoscPaliwa,DataTank,Aktywny")] Tankowanie tankowanie)
         {
             if (ModelState.IsValid)
             {
+                var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+                var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+                var pracownik = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+                
+                tankowanie.Firma = firma;
+                tankowanie.Pracownik = pracownik;
+              
                 _context.Add(tankowanie);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "IdPojazd", tankowanie.IdPojazd);
-            ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "IdPracownik", tankowanie.IdPracownik);
+           // ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "IdPracownik", tankowanie.IdPracownik);
             return View(tankowanie);
         }
 
@@ -102,7 +132,7 @@ namespace transport.Controllers
         [HttpPost]
         [Authorize(Roles = "Firma")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdTankowania,IdPracownik,IdPojazd,PrzebiegTankow,IloscPaliwa,WartoscPaliwa,DataTank,Aktywny")] Tankowanie tankowanie)
+        public async Task<IActionResult> Edit(int id, [Bind("IdTankowania,Firma,IdPracownik,IdPojazd,PrzebiegTankow,IloscPaliwa,WartoscPaliwa,DataTank,Aktywny")] Tankowanie tankowanie)
         {
             if (id != tankowanie.IdTankowania)
             {
