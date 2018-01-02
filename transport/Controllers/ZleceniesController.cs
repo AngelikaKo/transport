@@ -188,6 +188,138 @@ namespace transport.Controllers
             }
         }
 
+        // GET: Zlecenies sortowanie i wyszukiwanie
+        [Authorize(Roles = "Firma, Kierowca, Spedytor")]
+        public async Task<IActionResult> IndexSpedytor(int? id, string sortOrder, string searchString)
+        {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            // var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+            var firma = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "status_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["DateSortParm2"] = sortOrder == "Date2" ? "date_desc2" : "Date2";
+            ViewData["CurrentFilter"] = searchString;
+
+            if (firma != null)
+            {
+                
+                 var noweZlec = from s in _context.Zlecenia.Where(p => p.IdFirma == firma.FirmaId)
+
+                .Include(z => z.Kontrahent)
+                .Include(z => z.Naczepa)
+                .Include(z => z.Pojazd)
+                .Include(z => z.Pracownik)
+                               select s;
+
+
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    noweZlec = noweZlec.Where(s => s.Status.Contains(searchString)
+                    || s.WagaTow.Contains(searchString)
+                    || s.AdresOdbioru.Contains(searchString)
+                    || s.AdresDosta.Contains(searchString)
+                    || s.Kontrahent.Nazwa.Contains(searchString));
+                }
+
+                switch (sortOrder)
+                {
+                    case "status_desc":
+                        noweZlec = noweZlec.OrderByDescending(s => s.Status);
+                        break;
+                    case "Date":
+                        noweZlec = noweZlec.OrderBy(s => s.DataZalad);
+                        break;
+                    case "date_desc":
+                        noweZlec = noweZlec.OrderByDescending(s => s.DataZalad);
+                        break;
+                    case "Date2":
+                        noweZlec = noweZlec.OrderBy(s => s.DataRozl);
+                        break;
+                    case "date_desc2":
+                        noweZlec = noweZlec.OrderByDescending(s => s.DataRozl);
+                        break;
+                    default:
+                        noweZlec = noweZlec.OrderBy(s => s.Status);
+                        break;
+                }
+
+
+                return View(await noweZlec.ToListAsync());
+            }
+            else
+            {
+                return View(await _context.Pojazdy.ToListAsync());
+            }
+        }
+
+        // GET: Zlecenies sortowanie i wyszukiwanie
+        [Authorize(Roles = "Firma, Kierowca, Spedytor")]
+        public async Task<IActionResult> IndexKierowca(int? id, string sortOrder, string searchString)
+        {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            // var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+            var firma = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "status_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["DateSortParm2"] = sortOrder == "Date2" ? "date_desc2" : "Date2";
+            ViewData["CurrentFilter"] = searchString;
+
+            if (firma != null)
+            {
+
+                var noweZlec = from s in _context.Zlecenia.Where(p => p.IdFirma == firma.FirmaId)
+
+               .Include(z => z.Kontrahent)
+               .Include(z => z.Naczepa)
+               .Include(z => z.Pojazd)
+               .Include(z => z.Pracownik)
+                               select s;
+
+
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    noweZlec = noweZlec.Where(s => s.Status.Contains(searchString)
+                    || s.WagaTow.Contains(searchString)
+                    || s.AdresOdbioru.Contains(searchString)
+                    || s.AdresDosta.Contains(searchString)
+                    || s.Kontrahent.Nazwa.Contains(searchString));
+                }
+
+                switch (sortOrder)
+                {
+                    case "status_desc":
+                        noweZlec = noweZlec.OrderByDescending(s => s.Status);
+                        break;
+                    case "Date":
+                        noweZlec = noweZlec.OrderBy(s => s.DataZalad);
+                        break;
+                    case "date_desc":
+                        noweZlec = noweZlec.OrderByDescending(s => s.DataZalad);
+                        break;
+                    case "Date2":
+                        noweZlec = noweZlec.OrderBy(s => s.DataRozl);
+                        break;
+                    case "date_desc2":
+                        noweZlec = noweZlec.OrderByDescending(s => s.DataRozl);
+                        break;
+                    default:
+                        noweZlec = noweZlec.OrderBy(s => s.Status);
+                        break;
+                }
+
+
+                return View(await noweZlec.ToListAsync());
+            }
+            else
+            {
+                return View(await _context.Pojazdy.ToListAsync());
+            }
+        }
+
         // GET: Zlecenies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -217,7 +349,7 @@ namespace transport.Controllers
             ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa");
             ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr");
             ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr");
-            ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie");
+           // ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie");
             return View();
         }
 
@@ -233,8 +365,8 @@ namespace transport.Controllers
             {
                 var currentuser = await _userManager.GetUserAsync(HttpContext.User);
                 var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
-
-                zlecenie.Firma = firma;
+                               
+                 zlecenie.Firma = firma;
 
                 _context.Add(zlecenie);
                 await _context.SaveChangesAsync();
@@ -248,6 +380,50 @@ namespace transport.Controllers
             // FullName = s.Imie + " " + s.Nazwisko}),
             // "PracownikId", "FullName", null);
            // ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie", zlecenie.IdPracownik);
+            return View(zlecenie);
+        }
+
+        // GET: Zlecenies/Create
+        [Authorize(Roles = "Firma, Spedytor")]
+        public IActionResult CreateSpedytor()
+        {
+            ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa");
+            ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr");
+            ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr");
+           // ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie");
+            return View();
+        }
+
+        // POST: Zlecenies/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Firma, Spedytor")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateSpedytor([Bind("IdZlecenie,IdFirma,Pracownik,IdKontrahent,IdPojazd,IdNaczepa,AdresOdbioru,AdresDosta,DataZalad,GodzZalad,DataRozl,GodzRozl,Uwagi,DaneTowar,WagaTow,WartoscNetto,Aktywny,Waluta,Status")] Zlecenie zlecenie)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+                // var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+                var pracownik = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+                zlecenie.IdFirma = pracownik.FirmaId;
+                zlecenie.Pracownik = pracownik;
+                
+
+                _context.Add(zlecenie);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("IndexSpedytor");
+            }
+            ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa", zlecenie.IdKontrahent);
+            ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr", zlecenie.IdNaczepa);
+            ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr", zlecenie.IdPojazd);
+            //ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            // PracownikId = s.PracownikId,
+            // FullName = s.Imie + " " + s.Nazwisko}),
+            // "PracownikId", "FullName", null);
+            // ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie", zlecenie.IdPracownik);
             return View(zlecenie);
         }
 

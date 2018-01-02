@@ -1,0 +1,115 @@
+﻿@model IEnumerable<transport.Models.ApplicationModels.Zlecenie>
+    <font color="white">
+        @{
+            ViewData["Title"] = "Index";
+        }
+        <h2>Zlecenia</h2>
+        <p>
+            <a asp-action="CreateSpedytor">Dodaj nowe</a>
+        </p>
+        <form asp-action="IndexSpedytor" method="get">
+            <div class="form-actions">
+                <p>
+                    Szukaj:<font color="black"> <input type="text" name="SearchString" value="@ViewData["currentFilter"]" /></font>
+                    <input type="submit" value="OK" class="btn btn-default" /> |
+                    <a asp-action="IndexSpedytor">Wróć do pełnej listy</a>
+                </p>
+            </div>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Status)</a>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AdresOdbioru)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AdresDosta)
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.DataZalad)</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm2"]">@Html.DisplayNameFor(model => model.DataRozl)</a>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.WagaTow)
+                    </th>
+
+                    @if (!User.IsInRole("Kierowca"))
+                    {
+                        <th>
+                            @Html.DisplayNameFor(model => model.WartoscNetto)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Waluta)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Kontrahent)
+                        </th>
+                    }
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AdresOdbioru)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AdresDosta)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataZalad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataRozl)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WagaTow)
+                        </td>
+                        @if (!User.IsInRole("Kierowca"))
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.WartoscNetto)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Waluta)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Kontrahent.Nazwa)
+                            </td>
+                        }
+
+                        <td>
+                            @if (User.IsInRole("Kierowca"))
+                            {
+                                <a asp-action="Akceptuje" asp-route-id="@item.IdZlecenie">Szczegóły</a>
+
+                                <a asp-action="Trasa" asp-route-id="@item.IdZlecenie">| trasa</a>
+                                @ViewBag.MyUrl;
+
+                            }
+                            else
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.IdZlecenie">Edytuj</a>
+
+                                <a asp-action="Details" asp-route-id="@item.IdZlecenie">| Więcej </a>
+
+                                <a asp-action="Delete" asp-route-id="@item.IdZlecenie">| Usuń</a>
+                                <a asp-action="Trasa" asp-route-id="@item.IdZlecenie">| trasa</a>}
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </font>
