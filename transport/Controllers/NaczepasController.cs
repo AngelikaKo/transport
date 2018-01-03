@@ -44,10 +44,31 @@ namespace transport.Controllers
             }
             else
             {
-                return View(await _context.Pojazdy.ToListAsync());
+                return View(await _context.Naczepy.ToListAsync());
             }
            // var applicationDbContext = _context.Naczepy.Include(n => n.Pracownik);
            // return View(await applicationDbContext.ToListAsync());
+        }
+
+        // GET: Naczepas
+        [Authorize(Roles = "Firma, Admin, Spedytor")]
+        public async Task<IActionResult> IndexSpedytor()
+        {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+            if (firma != null)
+            {
+                var naczepy = _context.Naczepy.Where(p => p.IdFirma == firma.FirmaId);
+                return View(await naczepy.ToListAsync());
+                //return View(firma.Pracownicy.ToList());
+            }
+            else
+            {
+                return View(await _context.Naczepy.ToListAsync());
+            }
+            // var applicationDbContext = _context.Naczepy.Include(n => n.Pracownik);
+            // return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Naczepas/Details/5
