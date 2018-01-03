@@ -123,7 +123,10 @@ namespace transport.Controllers
                 return NotFound();
             }
            // ViewData["IdFirma"] = new SelectList(_context.Firmy, "IdFirma", "IdFirma", pojazd.IdFirma);
-            ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "IdPracownik", pojazd.IdPracownik);
+           ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko }),
+            "PracownikId", "FullName", null);
             return View(pojazd);
         }
 
@@ -135,6 +138,9 @@ namespace transport.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdPojazd,Firma,IdPracownik,Marka,Model,VIN,NrRejestr,DataProd,TachoOdczyt,TachoLegal,DataPrzegl,DataUbez,SpalanieSred,PrzebiegZakup,PrzebiegAktu,PrzebiegSerwis,RodzajKabiny,EmisjaSpalin,Retarder,Aktywny")] Pojazd pojazd)
         {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
             if (id != pojazd.IdPojazd)
             {
                 return NotFound();
@@ -144,6 +150,7 @@ namespace transport.Controllers
             {
                 try
                 {
+                    pojazd.Firma = firma;
                     _context.Update(pojazd);
                     await _context.SaveChangesAsync();
                 }
@@ -161,7 +168,10 @@ namespace transport.Controllers
                 return RedirectToAction("Index");
             }
            // ViewData["IdFirma"] = new SelectList(_context.Firmy, "IdFirma", "IdFirma", pojazd.IdFirma);
-            ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "IdPracownik", pojazd.IdPracownik);
+           ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko }),
+            "PracownikId", "FullName", null);
             return View(pojazd);
         }
 

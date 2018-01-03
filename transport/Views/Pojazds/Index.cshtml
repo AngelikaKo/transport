@@ -28,16 +28,10 @@
                 </th>               
                 <th>
                     @Html.DisplayNameFor(model => model.PrzebiegAktu)
-                </th>               
-                <th>
-                    @Html.DisplayNameFor(model => model.RodzajKabiny)
-                </th>
+                </th> 
                 <th>
                     @Html.DisplayNameFor(model => model.EmisjaSpalin)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Retarder)
-                </th>  
                 <th></th>
             </tr>
         </thead>
@@ -59,16 +53,10 @@
                     </td>                   
                     <td>
                         @Html.DisplayFor(modelItem => item.PrzebiegAktu)
-                    </td>                  
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RodzajKabiny)
-                    </td>
+                    </td>  
                     <td>
                         @Html.DisplayFor(modelItem => item.EmisjaSpalin)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Retarder)
-                    </td>                   
+                    </td>           
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.IdPojazd">Edytuj</a> |
                         <a asp-action="Details" asp-route-id="@item.IdPojazd">Więcej</a> |

@@ -10,7 +10,7 @@
 
     <h3>Napewno chcesz usunąć tą naczepę?</h3>
     <div>
-        <h4>Naczepa</h4>
+        
         <hr />
         <dl class="dl-horizontal">
             <input type="hidden" asp-for="IdNaczepa" />
@@ -63,7 +63,7 @@
                 @Html.DisplayFor(model => model.Wyposazenie)
             </dd>            
             <dt>
-                @Html.DisplayNameFor(model => model.Pracownik)
+                Kierowca
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Pracownik.GetFullName)

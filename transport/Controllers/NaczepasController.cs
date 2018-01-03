@@ -123,7 +123,10 @@ namespace transport.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "IdPracownik", naczepa.IdPracownik);
+           ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko }),
+            "PracownikId", "FullName", null);
             return View(naczepa);
         }
 
@@ -135,6 +138,9 @@ namespace transport.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdNaczepa,Firma,IdPracownik,Marka,Rodzaj,NrRejestr,DataProd,Wymiary,DataPrzegl,DataUbez,Wyposazenie,Aktywny")] Naczepa naczepa)
         {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
             if (id != naczepa.IdNaczepa)
             {
                 return NotFound();
@@ -144,6 +150,7 @@ namespace transport.Controllers
             {
                 try
                 {
+                    naczepa.Firma = firma;
                     _context.Update(naczepa);
                     await _context.SaveChangesAsync();
                 }
@@ -160,7 +167,10 @@ namespace transport.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "IdPracownik", naczepa.IdPracownik);
+            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko }),
+            "PracownikId", "FullName", null);
             return View(naczepa);
         }
 

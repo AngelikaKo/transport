@@ -51,18 +51,23 @@ namespace transport.Models
         public string Telefon { get; set; }
 
         [Display(Name = "Data urodzenia")]
+        [DataType(DataType.Date)]
         public DateTime DataUrodz { get; set; }
 
         [Display(Name = "Data zatrudnienia")]
+        [DataType(DataType.Date)]
         public DateTime DataZatru { get; set; }
 
         [Display(Name = "Data końca umowy")]
+        [DataType(DataType.Date)]
         public DateTime DataKonUmowy { get; set; }
 
         [Display(Name = "Data ważności karty kierowcy")]
+        [DataType(DataType.Date)]
         public DateTime DataKarty { get; set; }
 
         [Display(Name = "Data ostatniego odczytu karty kierowcy")]
+        [DataType(DataType.Date)]
         public DateTime DataOdczKart { get; set; }
 
         [Display(Name = "Nr dowodu osobistego")]
