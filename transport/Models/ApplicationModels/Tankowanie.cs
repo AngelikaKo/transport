@@ -29,7 +29,7 @@ namespace transport.Models.ApplicationModels
         [Display(Name = "Wartość zatankowanego paliwa")]
         public decimal WartoscPaliwa { get; set; }
 
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [Display(Name = "Data tankowania")]
         public DateTime DataTank { get; set; }
 

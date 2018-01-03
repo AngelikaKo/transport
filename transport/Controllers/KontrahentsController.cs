@@ -99,6 +99,39 @@ namespace transport.Controllers
                         
         }
 
+        // GET: Kontrahents/Create
+        [Authorize(Roles = "Firma, Spedytor, Admin")]
+        public IActionResult CreateSpedytor()
+        {
+            return View();
+        }
+
+        // POST: Kontrahents/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Firma, Spedytor, Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateSpedytor([Bind("IdKontrahent,IdFirma,Nazwa,NIP,Regon,Wlasciciel,Ulica,Kod,Miasto,Telefon,EMail,Typ,Aktywny")] Kontrahent kontrahent)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+               // var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+                
+                var pracownik = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+                kontrahent.IdFirma = pracownik.FirmaId;
+
+                _context.Add(kontrahent);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            return View(kontrahent);
+
+        }
+
         // GET: Kontrahents/Edit/5
         [Authorize(Roles = "Firma, Spedytor, Admin")]
         public async Task<IActionResult> Edit(int? id)
@@ -137,6 +170,68 @@ namespace transport.Controllers
                 try
                 {
                     kontrahent.Firma = firma;
+                    _context.Update(kontrahent);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!KontrahentExists(kontrahent.IdKontrahent))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            return View(kontrahent);
+        }
+
+        // GET: Kontrahents/Edit/5
+        [Authorize(Roles = "Firma, Spedytor, Admin")]
+        public async Task<IActionResult> EditSpedytor(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var kontrahent = await _context.Kontrahenci.SingleOrDefaultAsync(m => m.IdKontrahent == id);
+            if (kontrahent == null)
+            {
+                return NotFound();
+            }
+            return View(kontrahent);
+        }
+
+        // POST: Kontrahents/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Firma, Spedytor, Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditSpedytor(int id, [Bind("IdKontrahent,IdFirma,Nazwa,NIP,Regon,Wlasciciel,Ulica,Kod,Miasto,Telefon,EMail,Typ,Aktywny")] Kontrahent kontrahent)
+        {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            //var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+                       
+            var pracownik = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+           // zlecenie.IdFirma = pracownik.FirmaId;
+           // zlecenie.Pracownik = pracownik;
+
+            if (id != kontrahent.IdKontrahent)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    kontrahent.IdFirma = pracownik.FirmaId;
                     _context.Update(kontrahent);
                     await _context.SaveChangesAsync();
                 }

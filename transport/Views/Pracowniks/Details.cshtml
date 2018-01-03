@@ -90,7 +90,12 @@
         </dl>
     </div>
     <div>
-        <a asp-action="EditFirma" asp-route-id="@Model.PracownikId">Edytuj</a> |
-        <a asp-action="Index">Wstecz</a>
+        @if (User.IsInRole("Spedytor")) {
+        <a asp-action="IndexSpedytor">Wstecz</a>
+        }
+        else {
+        <a asp-action="EditFirma" asp-route-id="@Model.PracownikId">Edytuj |</a> 
+         <a asp-action="Index">Wstecz</a>
+        }
     </div>
 </font>

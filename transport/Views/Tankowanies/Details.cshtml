@@ -37,13 +37,13 @@
                 @Html.DisplayNameFor(model => model.Pojazd)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Pojazd.IdPojazd)
+                @Html.DisplayFor(model => model.Pojazd.NrRejestr)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.IdPracownik)
+                Kierowca
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.IdPracownik)
+                @Html.DisplayFor(model => model.Pracownik.GetFullName)
             </dd>
         </dl>
     </div>

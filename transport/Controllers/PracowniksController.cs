@@ -60,10 +60,10 @@ namespace transport.Controllers
             if (firma != null)
             {
                 var pracownicy = _context.Pracownicy.Where(p => p.FirmaId == firma.FirmaId);
-
+                //pracownicy.Where(r => r.Stanowisko == "Kierowca");
                // pracownicy.Where(r => r.User.Roles.Equals("2513098d-e515-4a10-9200-0f26de27fcff"));
 
-                return View(await pracownicy.ToListAsync());
+                return View(await pracownicy.Where(r => r.Stanowisko == "Kierowca").ToListAsync());
                 //return View(firma.Pracownicy.ToList());
             }
             else

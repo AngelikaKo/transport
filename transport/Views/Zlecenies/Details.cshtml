@@ -76,25 +76,25 @@
                 @Html.DisplayNameFor(model => model.Kontrahent)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Kontrahent.IdKontrahent)
+                @Html.DisplayFor(model => model.Kontrahent.Nazwa)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Naczepa)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Naczepa.IdNaczepa)
+                @Html.DisplayFor(model => model.Naczepa.NrRejestr)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Pojazd)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Pojazd.IdPojazd)
+                @Html.DisplayFor(model => model.Pojazd.NrRejestr)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.IdPracownik)
+                Kierowca
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.IdPracownik)
+                @Html.DisplayFor(model => model.Pracownik.GetFullName)
             </dd>
         </dl>
     </div>

@@ -6,8 +6,7 @@
     }
     <h2>Usuń</h2>
     <h3>Czy napewno chcesz usunąć?</h3>
-    <div>
-        <h4>Tankowanie</h4>
+    <div>        
         <hr />
         <dl class="dl-horizontal">
             <input type="hidden" asp-for="IdTankowania" />
@@ -39,19 +38,19 @@
                 @Html.DisplayNameFor(model => model.Pojazd)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Pojazd.IdPojazd)
+                @Html.DisplayFor(model => model.Pojazd.NrRejestr)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.IdPracownik)
+               Kierowca
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.IdPracownik)
+                @Html.DisplayFor(model => model.Pracownik.GetFullName)
             </dd>
         </dl>
 
         <form asp-action="Delete">
             <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
+                <input type="submit" value="Usuń" class="btn btn-default" /> |
                 <a asp-action="Index">Wstecz</a>
             </div>
         </form>

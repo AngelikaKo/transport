@@ -9,8 +9,7 @@
     <h2>Usuń</h2>
 
     <h3>Czy napewno chcesz usunąć to zlecenie?</h3>
-    <div>
-        <h4>Zlecenie</h4>
+    <div>        
         <hr />
         <dl class="dl-horizontal">
             <input type="hidden" asp-for="IdZlecenie" />
@@ -84,25 +83,25 @@
                 @Html.DisplayNameFor(model => model.Kontrahent)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Kontrahent.IdKontrahent)
+                @Html.DisplayFor(model => model.Kontrahent.Nazwa)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Naczepa)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Naczepa.IdNaczepa)
+                @Html.DisplayFor(model => model.Naczepa.NrRejestr)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Pojazd)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Pojazd.IdPojazd)
+                @Html.DisplayFor(model => model.Pojazd.NrRejestr)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.IdPracownik)
+                Kierowca
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.IdPracownik)
+                @Html.DisplayFor(model => model.Pracownik.GetFullName)
             </dd>
         </dl>
 
