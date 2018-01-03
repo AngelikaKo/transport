@@ -25,6 +25,8 @@ namespace transport.Models
         //public int FirmaId { get; set; }
         //public Firma Firma { get; set; }
 
+        public string Stanowisko { get; set; }
+
         [Display(Name = "Imię")]
         public string Imie { get; set; }
 

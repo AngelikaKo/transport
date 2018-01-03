@@ -1,101 +1,94 @@
-@model transport.Models.Pracownik
+﻿@model transport.Models.Pracownik
+<font color="white">
+    @{
+        ViewData["Title"] = "Delete";
+    }
+    <h2>Usuń</h2>
+    <h3>Czy napewno chcesz usunąć?</h3>
+    <div>
+        <h4>Pracownik</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <input type="hidden" asp-for="PracownikId" />
+            <dt>
+                @Html.DisplayNameFor(model => model.Imie)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Imie)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Nazwisko)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Nazwisko)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ulica)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ulica)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Kod)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Kod)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Miasto)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Miasto)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Telefon)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Telefon)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataUrodz)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataUrodz)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataZatru)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataZatru)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataKonUmowy)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataKonUmowy)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataKarty)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataKarty)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataOdczKart)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataOdczKart)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NrDowoduOsob)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NrDowoduOsob)
+            </dd>           
+        </dl>
 
-@{
-    ViewData["Title"] = "Delete";
-}
-
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Pracownik</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <input type="hidden" asp-for="PracownikId" />
-        <dt>
-            @Html.DisplayNameFor(model => model.Imie)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Imie)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Nazwisko)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Nazwisko)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Ulica)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Ulica)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Kod)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Kod)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Miasto)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Miasto)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Telefon)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Telefon)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataUrodz)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DataUrodz)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataZatru)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DataZatru)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataKonUmowy)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DataKonUmowy)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataKarty)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DataKarty)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DataOdczKart)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DataOdczKart)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.NrDowoduOsob)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NrDowoduOsob)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Aktywny)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Aktywny)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            <a asp-action="Index">Back to List</a>
-        </div>
-    </form>
-</div>
+        <form asp-action="Delete">
+            <div class="form-actions no-color">
+                <input type="submit" value="Usuń" class="btn btn-default" /> |
+                <a asp-action="Index">Wstecz</a>
+            </div>
+        </form>
+    </div>
+</font>

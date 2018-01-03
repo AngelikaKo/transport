@@ -1,4 +1,4 @@
-@model transport.Models.Pracownik
+ï»¿@model transport.Models.Pracownik
 
 <font color="white">
 
@@ -6,14 +6,14 @@
         ViewData["Title"] = "Details";
     }
 
-    <h2>Szczegó³y</h2>
+    <h2>SzczegÃ³Å‚y</h2>
 
     <div>
        
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                Imiê
+                ImiÄ™
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Imie)
@@ -52,7 +52,7 @@
                 Data urodzenia
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.DataUrodz)
+                @Html.DisplayFor(model => model.DataUrodz)                
             </dd>
             <dt>
                Data zatrudnienia
@@ -61,13 +61,13 @@
                 @Html.DisplayFor(model => model.DataZatru)
             </dd>
             <dt>
-                Data koñca umowy
+                Data koÅ„ca umowy
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.DataKonUmowy)
             </dd>
             <dt>
-                Data wa¿noœci karty
+                Data waÅ¼noÅ›ci karty
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.DataKarty)
@@ -87,7 +87,7 @@
         </dl>
     </div>
     <div>
-        <a asp-action="Edit" asp-route-id="@Model.PracownikId">Edytuj</a> |
-        <a asp-action="Index">Wróæ do listy</a>
+        <a asp-action="EditFirma" asp-route-id="@Model.PracownikId">Edytuj</a> |
+        <a asp-action="Index">Wstecz</a>
     </div>
 </font>

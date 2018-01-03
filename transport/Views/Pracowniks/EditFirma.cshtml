@@ -1,14 +1,11 @@
-﻿@model transport.Models.Pracownik
+@model transport.Models.Pracownik
 
 <font color="white">
-
     @{
         ViewData["Title"] = "Edit";
     }
-
     <h2>Edytuj</h2>
-
-    <form asp-action="Edit">
+    <form asp-action="EditFirma">
         <div class="form-horizontal">
             <h4>Pracownik</h4>
             <hr />
@@ -97,7 +94,7 @@
                     <input asp-for="NrDowoduOsob" class="form-control" />
                     <span asp-validation-for="NrDowoduOsob" class="text-danger"></span>
                 </div>
-            </div>           
+            </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Zapisz" class="btn btn-default" />
@@ -105,13 +102,10 @@
             </div>
         </div>
     </form>
-
     <div>
         <a asp-action="Index">Wstecz</a>
     </div>
-
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
-
 </font>

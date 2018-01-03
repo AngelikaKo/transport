@@ -1,4 +1,4 @@
-@model transport.Models.AccountViewModels.RegisterSpedytorViewModel
+﻿@model transport.Models.AccountViewModels.RegisterSpedytorViewModel
 
 <font color="white">
 
@@ -10,7 +10,7 @@
 
     <form asp-action="RegisterSpedytor">
         <div class="form-horizontal">
-            <h4>Uzupe�nij dane.</h4>
+            <h4>Uzupełnij dane.</h4>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -113,7 +113,7 @@
     </form>
 
     <div>
-        <a asp-action="Index">Back to List</a>
+        <a href="~/Pracowniks/Index">Wstecz</a>     
     </div>
 </font>
 @section Scripts {

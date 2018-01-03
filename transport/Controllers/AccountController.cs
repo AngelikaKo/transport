@@ -195,6 +195,7 @@ namespace transport.Controllers
                     Email = model.Email,
                     Pracownik = new Pracownik
                     {
+                        Stanowisko = "Administrator",
                         Imie = model.Imie,
                         Nazwisko = model.Nazwisko,
                         Ulica = model.Ulica,
@@ -260,6 +261,7 @@ namespace transport.Controllers
                     Email = model.Email,
                     Pracownik = new Pracownik
                     {
+                        Stanowisko = "Spedytor",
                         Imie = model.Imie,
                         Nazwisko = model.Nazwisko,
                         Ulica = model.Ulica,
@@ -325,6 +327,7 @@ namespace transport.Controllers
                     Email = model.Email,
                     Pracownik = new Pracownik
                     {
+                        Stanowisko = "Kierowca",
                         Imie = model.Imie,
                         Nazwisko = model.Nazwisko,
                         Ulica = model.Ulica,

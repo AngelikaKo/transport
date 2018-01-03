@@ -17,12 +17,17 @@ namespace transport.Controllers
         private readonly ApplicationDbContext _context;
 
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
 
-        public PracowniksController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public PracowniksController(
+            ApplicationDbContext context,
+            SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         
@@ -99,7 +104,7 @@ namespace transport.Controllers
         [HttpPost]
         [Authorize(Roles = "Firma, Administrator")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdPracownik,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny")] Pracownik pracownik)
+        public async Task<IActionResult> Create([Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny")] Pracownik pracownik)
         {
             if (ModelState.IsValid)
             {
@@ -133,8 +138,11 @@ namespace transport.Controllers
         [HttpPost]
         [Authorize(Roles ="Firma, Administrator")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdPracownik,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,FirmaId")] Pracownik pracownik)
+        public async Task<IActionResult> Edit(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma")] Pracownik pracownik)
         {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
             if (id != pracownik.PracownikId)
             {
                 return NotFound();
@@ -144,6 +152,64 @@ namespace transport.Controllers
             {
                 try
                 {
+                    pracownik.Firma = firma;
+                    _context.Update(pracownik);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PracownikExists(pracownik.PracownikId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            return View(pracownik);
+        }
+
+        // GET: Pracowniks/Edit/5
+        [Authorize(Roles = "Firma, Administrator")]
+        public async Task<IActionResult> EditFirma(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var pracownik = await _context.Pracownicy.SingleOrDefaultAsync(m => m.PracownikId == id);
+            if (pracownik == null)
+            {
+                return NotFound();
+            }
+            return View(pracownik);
+        }
+
+        // POST: Pracowniks/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Firma, Administrator")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditFirma(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma,UserId")] Pracownik pracownik)
+        {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);            
+
+            if (id != pracownik.PracownikId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {                    
+                    pracownik.Firma = firma;
                     _context.Update(pracownik);
                     await _context.SaveChangesAsync();
                 }
