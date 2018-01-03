@@ -1,4 +1,4 @@
-@model IEnumerable<transport.Models.Firma>
+﻿@model IEnumerable<transport.Models.Firma>
 
 <font color="white">
 
@@ -20,10 +20,7 @@
                 </th>                
                 <th>
                     @Html.DisplayNameFor(model => model.Wlasciciel)
-                </th>               
-                <th>
-                    @Html.DisplayNameFor(model => model.KodF)
-                </th>
+                </th>  
                 <th>
                     @Html.DisplayNameFor(model => model.MiastoF)
                 </th>
@@ -45,10 +42,7 @@
                     </td>                    
                     <td>
                         @Html.DisplayFor(modelItem => item.Wlasciciel)
-                    </td>                    
-                    <td>
-                        @Html.DisplayFor(modelItem => item.KodF)
-                    </td>
+                    </td>  
                     <td>
                         @Html.DisplayFor(modelItem => item.MiastoF)
                     </td>
@@ -56,7 +50,7 @@
                         @Html.DisplayFor(modelItem => item.TelefonF)
                     </td>                    
                     <td>
-                        <a asp-action="Details" asp-route-id="@item.IdFirma">Wi�cej</a> 
+                        <a asp-action="Details" asp-route-id="@item.IdFirma">Więcej</a> 
                     </td>
                 </tr>
             }

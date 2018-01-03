@@ -1,16 +1,15 @@
 ﻿@model transport.Models.ApplicationModels.Ogloszenie
-    
+
+
 <font color="white">
     @{
-        ViewData["Title"] = "Delete";
+        ViewData["Title"] = "Details";
     }
-    <h2>Usuń</h2>
-    <h3>Czy napewno chcesz usunąć to ogłoszenie?</h3>
+    <h2>Szczegóły</h2>
     <div>
         <h4>Ogłoszenie</h4>
         <hr />
         <dl class="dl-horizontal">
-            <input type="hidden" asp-for="IdOgloszenie" />
             <dt>
                 @Html.DisplayNameFor(model => model.DataDodania)
             </dt>
@@ -28,20 +27,11 @@
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Tresc)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.FirmaId)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.FirmaId)
-            </dd>
+            </dd>           
         </dl>
-
-        <form asp-action="Delete">
-            <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                <a asp-action="IndexFirma">Wróć do listy</a>
-            </div>
-        </form>
+    </div>
+    <div>
+        <a asp-action="EditFirma" asp-route-id="@Model.IdOgloszenie">Edytuj</a> |
+        <a asp-action="IndexFirma">Wróć do listy</a>
     </div>
 </font>

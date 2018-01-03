@@ -1,52 +1,40 @@
 ﻿@model transport.Models.ApplicationModels.Ogloszenie
 
 <font color="white">
-
     @{
-        ViewData["Title"] = "Create";
+        ViewData["Title"] = "Edit";
     }
-
-    <h2>Dodaj ogłoszenie</h2>
-
-    <form asp-action="Create">
+    <h2>Edytuj</h2>
+    <form asp-action="EditFirma">
         <div class="form-horizontal">
-           
+            <h4>Ogłoszenie</h4>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FirmaId" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <select asp-for="FirmaId" class="form-control" asp-items="ViewBag.FirmaId"></select>
-                </div>
-            </div>           
+            <input type="hidden" asp-for="IdOgloszenie" />           
             <div class="form-group">
                 <label asp-for="Typ" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
-                    <select asp-for="Typ" class="form-control">
-                        <option>dam pracę</option>
-                        <option>sprzedam</option>
-                    </select>                    
+                    <input asp-for="Typ" class="form-control" />
+                    <span asp-validation-for="Typ" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group">
                 <label asp-for="Tresc" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
-                    <textarea asp-for="Tresc" class="form-control"></textarea>                    
+                    <textarea asp-for="Tresc" class="form-control"></textarea>
                     <span asp-validation-for="Tresc" class="text-danger"></span>
                 </div>
-            </div>            
+            </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Dodaj" class="btn btn-default" />
+                    <input type="submit" value="Zapisz" class="btn btn-default" />
                 </div>
             </div>
         </div>
     </form>
-
     <div>
-        <a asp-action="IndexFirma">Wróć do listy</a>
+        <a asp-action="IndexFirma">Wstecz</a>
     </div>
-
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }

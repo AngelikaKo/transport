@@ -61,7 +61,7 @@
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li><a asp-area="" asp-controller="Ogloszenies" asp-action="Create">Dodaj ogłoszenie</a></li>
+                <li><a asp-area="" asp-controller="Ogloszenies" asp-action="IndexFirma">Moje ogłoszenia</a></li>
                 <li><a asp-area="" asp-controller="Firmas" asp-action="Edit">Edytuj dane firmy</a></li>
                 <li><a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Manage</a></li>
             </ul>
@@ -108,7 +108,7 @@
 
             @if (User.IsInRole("Spedytor"))
     {
-        <li><a asp-area="" asp-controller="Pracowniks" asp-action="Index">Kierowcy</a></li>
+        <li><a asp-area="" asp-controller="Pracowniks" asp-action="IndexSpedytor">Kierowcy</a></li>
         <li><a asp-area="" asp-controller="Kontrahents" asp-action="Index">Kontrahenci</a></li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">

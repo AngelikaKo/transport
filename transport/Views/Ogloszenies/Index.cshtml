@@ -10,10 +10,7 @@
     }
 
     <h2>Ogłoszenia:</h2>
-
-    <p>
-        <a asp-action="Create">Dodaj nowe</a>
-    </p>
+        
     <table class="table">
         <thead>
             <tr>
@@ -27,7 +24,7 @@
                     @Html.DisplayNameFor(model => model.Tresc)
                 </th>              
                 <th>
-                    @Html.DisplayNameFor(model => model.Firmy)
+                   Nazwa Firmy
                 </th>
                 <th></th>
             </tr>
@@ -46,12 +43,10 @@
                         @Html.DisplayFor(modelItem => item.Tresc)
                     </td>                  
                     <td>
-                        @Html.DisplayFor(modelItem => item.Firmy.Nazwa)
+                        @Html.DisplayFor(modelItem => item.Firma.Nazwa)
                     </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.IdOgloszenie">Edytuj</a> |
-                        <a asp-action="Details" asp-route-id="@item.IdOgloszenie">Szczegóły</a> |
-                        <a asp-action="Delete" asp-route-id="@item.IdOgloszenie">Usuń</a>
+                    <td>                      
+                        <a asp-action="Details" asp-route-id="@item.IdOgloszenie">Szczegóły</a>                        
                     </td>
                 </tr>
             }

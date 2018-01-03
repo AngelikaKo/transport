@@ -25,16 +25,7 @@ namespace transport.Controllers
             _userManager = userManager;
         }
 
-
-        //***************
-        // wyswietlanie kierowców
-      // public async Task<IActionResult> Kierowcy()        {
-            
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!?????????????????*************************
-           
-       //     return View(await _context.Pracownicy.ToListAsync());        }
-       //*******************************
-
+        
 
         // GET: Pracowniks
         public async Task<IActionResult> Index()
@@ -45,6 +36,28 @@ namespace transport.Controllers
             if (firma != null)
             {                
                 var pracownicy = _context.Pracownicy.Where(p => p.FirmaId == firma.IdFirma);
+                return View(await pracownicy.ToListAsync());
+                //return View(firma.Pracownicy.ToList());
+            }
+            else
+            {
+                return View(await _context.Pracownicy.ToListAsync());
+            }
+
+        }
+
+        // GET: Pracowniks
+        public async Task<IActionResult> IndexSpedytor()
+        {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+            if (firma != null)
+            {
+                var pracownicy = _context.Pracownicy.Where(p => p.FirmaId == firma.FirmaId);
+
+               // pracownicy.Where(r => r.User.Roles.Equals("2513098d-e515-4a10-9200-0f26de27fcff"));
+
                 return View(await pracownicy.ToListAsync());
                 //return View(firma.Pracownicy.ToList());
             }

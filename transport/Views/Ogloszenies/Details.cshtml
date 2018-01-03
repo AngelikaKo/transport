@@ -1,4 +1,4 @@
-@model transport.Models.ApplicationModels.Ogloszenie
+ï»¿@model transport.Models.ApplicationModels.Ogloszenie
 
 
 <font color="white">
@@ -7,10 +7,10 @@
         ViewData["Title"] = "Details";
     }
 
-    <h2>Szczegó³y</h2>
+    <h2>SzczegÃ³Å‚y</h2>
 
     <div>
-        <h4>Og³oszenie</h4>
+        <h4>OgÅ‚oszenie</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -32,16 +32,15 @@
                 @Html.DisplayFor(model => model.Tresc)
             </dd>            
             <dt>
-                @Html.DisplayNameFor(model => model.Firmy)
+               Nazwa Firmy
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Firmy.Nazwa)
+                @Html.DisplayFor(model => model.Firma.Nazwa)
             </dd>
         </dl>
     </div>
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model.IdOgloszenie">Edytuj</a> |
-        <a asp-action="Index">Wróæ do listy</a>
+    <div>        
+        <a asp-action="Index">Wstecz</a>
     </div>
 
 </font>
