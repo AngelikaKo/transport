@@ -1,0 +1,71 @@
+﻿@model IEnumerable<transport.Models.ApplicationModels.Pojazd>
+    <font color="white">
+        @{
+            ViewData["Title"] = "Index";
+        }
+        <h2>Ciągniki siodłowe</h2>
+         @if (User.IsInRole("Firma, Administrator")) {
+        <p>
+            <a asp-action="Create">Dodaj nowy</a>
+        </p>
+         }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Marka)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Model)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NrRejestr)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DataProd)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PrzebiegAktu)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EmisjaSpalin)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Marka)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Model)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NrRejestr)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DataProd)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PrzebiegAktu)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmisjaSpalin)
+                        </td>
+                        <td>
+                            @if (User.IsInRole("Firma, Administrator"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.IdPojazd">Edytuj |</a>
+                                  <a asp-action="Delete" asp-route-id="@item.IdPojazd">Usuń |</a>
+                            }
+                            <a asp-action="Details" asp-route-id="@item.IdPojazd">Więcej</a> 
+                          
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </font>

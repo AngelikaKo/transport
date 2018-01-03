@@ -58,8 +58,10 @@
                         @Html.DisplayFor(modelItem => item.EmisjaSpalin)
                     </td>           
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.IdPojazd">Edytuj</a> |
-                        <a asp-action="Details" asp-route-id="@item.IdPojazd">Więcej</a> |
+                        @if (User.IsInRole("Firma, Administrator")) {
+                        <a asp-action="Edit" asp-route-id="@item.IdPojazd">Edytuj |</a> 
+                            }
+                         <a asp-action="Details" asp-route-id="@item.IdPojazd">Więcej</a> |
                         <a asp-action="Delete" asp-route-id="@item.IdPojazd">Usuń</a>
                     </td>
                 </tr>

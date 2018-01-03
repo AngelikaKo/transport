@@ -50,6 +50,27 @@ namespace transport.Controllers
 
         }
 
+        // GET: Pojazds
+        [Authorize(Roles = "Firma, Admin, Spedytor")]
+        public async Task<IActionResult> IndexSpedytor()
+        {
+
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+            if (firma != null)
+            {
+                var pojazdy = _context.Pojazdy.Where(p => p.IdFirma == firma.FirmaId);
+                return View(await pojazdy.ToListAsync());
+                //return View(firma.Pracownicy.ToList());
+            }
+            else
+            {
+                return View(await _context.Pojazdy.ToListAsync());
+            }
+
+        }
+
         // GET: Pojazds/Details/5
         [Authorize(Roles = "Firma, Admin, Spedytor")]
         public async Task<IActionResult> Details(int? id)
