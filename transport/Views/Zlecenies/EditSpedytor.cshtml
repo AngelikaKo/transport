@@ -1,14 +1,11 @@
-﻿@model transport.Models.ApplicationModels.Zlecenie
+@model transport.Models.ApplicationModels.Zlecenie
 
 <font color="white">
-
     @{
         ViewData["Title"] = "Edit";
     }
-
     <h2>Edytuj</h2>
-
-    <form asp-action="Edit">
+    <form asp-action="EditSpedytor">
         <div class="form-horizontal">
             <h4>Zlecenie</h4>
             <hr />
@@ -119,17 +116,17 @@
                     <input asp-for="WartoscNetto" class="form-control" />
                     <span asp-validation-for="WartoscNetto" class="text-danger"></span>
                 </div>
-            </div>  
+            </div>
             <div class="form-group">
                 <label asp-for="Waluta" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
                     <select asp-for="Waluta" class="form-control">
-                        <option>ZŁ</option>
+                        <option>Z�</option>
                         <option>EUR</option>
                     </select>
                     <span asp-validation-for="Waluta" class="text-danger"></span>
                 </div>
-            </div> 
+            </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Zapisz" class="btn btn-default" />
@@ -137,18 +134,16 @@
             </div>
         </div>
     </form>
-
     <div>
         @if (User.IsInRole("Firma"))
-    {
-        <a asp-action="Index">Wstecz</a> }
-else
-{
-    <a asp-action="IndexSpedytor">Wstecz</a>
+        {
+            <a asp-action="Index">Wstecz</a> }
+        else
+        {
+            <a asp-action="IndexSpedytor">Wstecz</a>
 
-}
+        }
     </div>
-
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }

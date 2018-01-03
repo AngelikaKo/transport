@@ -395,7 +395,10 @@ namespace transport.Controllers
             ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa");
             ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr");
             ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr");
-           // ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie");
+            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko }),
+            "PracownikId", "FullName", null);
             return View();
         }
 
@@ -424,11 +427,10 @@ namespace transport.Controllers
             ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa", zlecenie.IdKontrahent);
             ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr", zlecenie.IdNaczepa);
             ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr", zlecenie.IdPojazd);
-            //ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
-            // PracownikId = s.PracownikId,
-            // FullName = s.Imie + " " + s.Nazwisko}),
-            // "PracownikId", "FullName", null);
-            // ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie", zlecenie.IdPracownik);
+            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko }),
+            "PracownikId", "FullName", null);
             return View(zlecenie);
         }
 
@@ -492,7 +494,81 @@ namespace transport.Controllers
             ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa", zlecenie.IdKontrahent);
             ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr", zlecenie.IdNaczepa);
             ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr", zlecenie.IdPojazd);
-            ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie", zlecenie.IdPracownik);
+            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko }),
+            "PracownikId", "FullName", null);
+            return View(zlecenie);
+        }
+
+        // GET: Zlecenies/Edit/5
+        [Authorize(Roles = "Firma, Spedytor")]
+        public async Task<IActionResult> EditSpedytor(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var zlecenie = await _context.Zlecenia.SingleOrDefaultAsync(m => m.IdZlecenie == id);
+            if (zlecenie == null)
+            {
+                return NotFound();
+            }
+            ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa", zlecenie.IdKontrahent);
+            ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr", zlecenie.IdNaczepa);
+            ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr", zlecenie.IdPojazd);
+            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko }),
+            "PracownikId", "FullName", null);
+            return View(zlecenie);
+        }
+
+        // POST: Zlecenies/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Firma, Spedytor")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditSpedytor(int id, [Bind("IdZlecenie,IdFirma,IdKontrahent,IdPracownik,IdPojazd,IdNaczepa,AdresOdbioru,AdresDosta,DataZalad,GodzZalad,DataRozl,GodzRozl,Uwagi,DaneTowar,WagaTow,WartoscNetto,Aktywny,Waluta,Status")] Zlecenie zlecenie)
+        {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var pracownik = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+            if (id != zlecenie.IdZlecenie)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    zlecenie.IdFirma = pracownik.FirmaId;
+                    _context.Update(zlecenie);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ZlecenieExists(zlecenie.IdZlecenie))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("IndexSpedytor");
+            }
+            ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa", zlecenie.IdKontrahent);
+            ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr", zlecenie.IdNaczepa);
+            ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr", zlecenie.IdPojazd);
+             ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko }),
+            "PracownikId", "FullName", null);
             return View(zlecenie);
         }
 

@@ -33,10 +33,7 @@
                     </th>
                     <th>
                         <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm2"]">@Html.DisplayNameFor(model => model.DataRozl)</a>
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.WagaTow)
-                    </th>
+                    </th>                   
 
                     @if (!User.IsInRole("Kierowca"))
                     {
@@ -71,10 +68,7 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.DataRozl)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.WagaTow)
-                        </td>
+                        </td>                      
                         @if (!User.IsInRole("Kierowca"))
                         {
                             <td>
@@ -101,7 +95,7 @@
                             }
                             else
                             {
-                                <a asp-action="Edit" asp-route-id="@item.IdZlecenie">Edytuj</a>
+                                <a asp-action="EditSpedytor" asp-route-id="@item.IdZlecenie">Edytuj</a>
 
                                 <a asp-action="Details" asp-route-id="@item.IdZlecenie">| Więcej </a>
 
