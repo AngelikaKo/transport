@@ -66,9 +66,11 @@
             <dd>
                 @Html.DisplayFor(model => model.DataKonUmowy)
             </dd>
+             @if (Model.Stanowisko.Equals("Kierowca"))
+            {
             <dt>
                 Data ważności karty
-            </dt>
+            </dt>           
             <dd>
                 @Html.DisplayFor(model => model.DataKarty)
             </dd>
@@ -78,6 +80,7 @@
             <dd>
                 @Html.DisplayFor(model => model.DataOdczKart)
             </dd>
+            }
             <dt>
                 Nr Dowodu Osobistego
             </dt>

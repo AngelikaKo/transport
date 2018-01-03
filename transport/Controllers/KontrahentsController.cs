@@ -124,6 +124,9 @@ namespace transport.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdKontrahent,Firma,Nazwa,NIP,Regon,Wlasciciel,Ulica,Kod,Miasto,Telefon,EMail,Typ,Aktywny")] Kontrahent kontrahent)
         {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
             if (id != kontrahent.IdKontrahent)
             {
                 return NotFound();
@@ -133,6 +136,7 @@ namespace transport.Controllers
             {
                 try
                 {
+                    kontrahent.Firma = firma;
                     _context.Update(kontrahent);
                     await _context.SaveChangesAsync();
                 }

@@ -195,8 +195,10 @@ namespace transport.Controllers
         [HttpPost]
         [Authorize(Roles = "Firma, Administrator")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditFirma(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma,UserId")] Pracownik pracownik)
+        public async Task<IActionResult> EditFirma(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma,Stanowisko")] Pracownik pracownik)
         {
+            var userid = pracownik.UserId;
+            var stanowisko = pracownik.Stanowisko;
             var currentuser = await _userManager.GetUserAsync(HttpContext.User);
             var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);            
 
@@ -208,7 +210,189 @@ namespace transport.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {                    
+                {
+                    pracownik.Stanowisko = stanowisko;
+                    pracownik.UserId = userid;
+                    pracownik.Firma = firma;
+                    _context.Update(pracownik);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PracownikExists(pracownik.PracownikId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            return View(pracownik);
+        }
+
+        // GET: Pracowniks/Edit/5
+        [Authorize(Roles = "Firma, Administrator")]
+        public async Task<IActionResult> EditFirmaKierowca(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var pracownik = await _context.Pracownicy.SingleOrDefaultAsync(m => m.PracownikId == id);
+            if (pracownik == null)
+            {
+                return NotFound();
+            }
+            return View(pracownik);
+        }
+
+        // POST: Pracowniks/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Firma, Administrator")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditFirmaKierowca(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma,Stanowisko")] Pracownik pracownik)
+        {
+            //var userid = pracownik.UserId;           
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+            if (id != pracownik.PracownikId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    pracownik.Stanowisko = "Kierowca";
+                   // pracownik.UserId = userid;
+                    pracownik.Firma = firma;
+                    _context.Update(pracownik);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PracownikExists(pracownik.PracownikId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            return View(pracownik);
+        }
+
+        // GET: Pracowniks/Edit/5
+        [Authorize(Roles = "Firma, Administrator")]
+        public async Task<IActionResult> EditFirmaSpedytor(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var pracownik = await _context.Pracownicy.SingleOrDefaultAsync(m => m.PracownikId == id);
+            if (pracownik == null)
+            {
+                return NotFound();
+            }
+            return View(pracownik);
+        }
+
+        // POST: Pracowniks/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Firma, Administrator")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditFirmaSpedytor(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma,Stanowisko")] Pracownik pracownik)
+        {
+            //var userid = pracownik.UserId;           
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+            if (id != pracownik.PracownikId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    pracownik.Stanowisko = "Spedytor";
+                    // pracownik.UserId = userid;
+                    pracownik.Firma = firma;
+                    _context.Update(pracownik);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PracownikExists(pracownik.PracownikId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            return View(pracownik);
+        }
+
+        // GET: Pracowniks/Edit/5
+        [Authorize(Roles = "Firma, Administrator")]
+        public async Task<IActionResult> EditFirmaAdministrator(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var pracownik = await _context.Pracownicy.SingleOrDefaultAsync(m => m.PracownikId == id);            
+            if (pracownik == null)
+            {
+                return NotFound();
+            }
+            return View(pracownik);
+        }
+
+        // POST: Pracowniks/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Firma, Administrator")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditFirmaAdministrator(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma,Stanowisko")] Pracownik pracownik)
+        {
+           // var userid = pracownik.UserId;           
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+            if (id != pracownik.PracownikId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    pracownik.Stanowisko = "Administrator";
+                   // pracownik.UserId = userid;
                     pracownik.Firma = firma;
                     _context.Update(pracownik);
                     await _context.SaveChangesAsync();

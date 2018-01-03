@@ -64,6 +64,8 @@
             <dd>
                 @Html.DisplayFor(model => model.DataKonUmowy)
             </dd>
+            @if (Model.Stanowisko.Equals("Kierowca"))
+            {
             <dt>
                 @Html.DisplayNameFor(model => model.DataKarty)
             </dt>
@@ -76,6 +78,7 @@
             <dd>
                 @Html.DisplayFor(model => model.DataOdczKart)
             </dd>
+            }
             <dt>
                 @Html.DisplayNameFor(model => model.NrDowoduOsob)
             </dt>

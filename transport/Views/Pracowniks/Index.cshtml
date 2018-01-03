@@ -51,8 +51,16 @@
                     @Html.DisplayFor(modelItem => item.Telefon)
                 </td>
                 <td>
-                    <a asp-action="EditFirma" asp-route-id="@item.PracownikId">Edytuj</a> |
-                    <a asp-action="Details" asp-route-id="@item.PracownikId">Więcej</a> |
+                    @if (@item.Stanowisko.Equals("Kierowca")){
+                    <a asp-action="EditFirmaKierowca" asp-route-id="@item.PracownikId">Edytuj</a> 
+                    }
+                     @if (@item.Stanowisko.Equals("Spedytor")){
+                    <a asp-action="EditFirmaSpedytor" asp-route-id="@item.PracownikId">Edytuj</a> 
+                    }
+                    @if (@item.Stanowisko.Equals("Administrator")){
+                    <a asp-action="EditFirmaAdministrator" asp-route-id="@item.PracownikId">Edytuj</a> 
+                    }
+                    | <a asp-action="Details" asp-route-id="@item.PracownikId"> Więcej</a> |
                     <a asp-action="Delete" asp-route-id="@item.PracownikId">Usuń</a>
                 </td>
             </tr>
