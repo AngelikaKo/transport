@@ -62,7 +62,8 @@ namespace transport.Models.ApplicationModels
         [DataType(DataType.MultilineText)]
         [Display(Name = "Waga towaru")]
         public string WagaTow { get; set; }
-
+                
+        [DataType(DataType.Currency)]
         [Display(Name = "Cena netto")]
         public decimal WartoscNetto { get; set; }
 

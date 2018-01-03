@@ -71,6 +71,27 @@ namespace transport.Controllers
             // return View(await applicationDbContext.ToListAsync());
         }
 
+        // GET: Naczepas
+        [Authorize(Roles = "Kierowca")]
+        public async Task<IActionResult> IndexKierowca()
+        {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+            if (firma != null)
+            {
+                var naczepy = _context.Naczepy.Where(p => p.IdFirma == firma.FirmaId);
+                return View(await naczepy.Where(p => p.IdPracownik == firma.PracownikId).ToListAsync());
+                //return View(firma.Pracownicy.ToList());
+            }
+            else
+            {
+                return View(await _context.Naczepy.ToListAsync());
+            }
+            // var applicationDbContext = _context.Naczepy.Include(n => n.Pracownik);
+            // return View(await applicationDbContext.ToListAsync());
+        }
+
         // GET: Naczepas/Details/5
         [Authorize(Roles = "Firma, Admin, Spedytor")]
         public async Task<IActionResult> Details(int? id)

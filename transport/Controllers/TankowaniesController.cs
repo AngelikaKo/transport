@@ -76,7 +76,7 @@ namespace transport.Controllers
         [Authorize(Roles = "Kierowca")]
         public IActionResult Create()
         {
-            ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "IdPojazd");
+            ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr");
            // ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "IdPracownik");
             return View();
         }
@@ -103,7 +103,7 @@ namespace transport.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index","Home");
             }
-            ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "IdPojazd", tankowanie.IdPojazd);
+            ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr", tankowanie.IdPojazd);
            // ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "IdPracownik", tankowanie.IdPracownik);
             return View(tankowanie);
         }

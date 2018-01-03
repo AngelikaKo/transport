@@ -21,7 +21,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdZlecenie" />
             <div class="form-group">
-                <label asp-for="IdKontrahent" class="control-label col-md-2"></label>
+                <label asp-for="IdKontrahent" class="control-label col-md-2">Kontrahent</label>
                 <div class="col-md-10">
                     <select asp-for="IdKontrahent" class="form-control" asp-items="ViewBag.IdKontrahent"></select>
                     <span asp-validation-for="IdKontrahent" class="text-danger"></span>
@@ -34,14 +34,14 @@
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="IdPojazd" class="control-label col-md-2"></label>
+                <label asp-for="IdPojazd" class="control-label col-md-2">Pojazd</label>
                 <div class="col-md-10">
                     <select asp-for="IdPojazd" class="form-control" asp-items="ViewBag.IdPojazd"></select>
                     <span asp-validation-for="IdPojazd" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="IdNaczepa" class="control-label col-md-2"></label>
+                <label asp-for="IdNaczepa" class="control-label col-md-2">Naczepa</label>
                 <div class="col-md-10">
                     <select asp-for="IdNaczepa" class="form-control" asp-items="ViewBag.IdNaczepa"></select>
                     <span asp-validation-for="IdNaczepa" class="text-danger"></span>
