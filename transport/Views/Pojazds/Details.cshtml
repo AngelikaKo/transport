@@ -117,14 +117,19 @@
         </dl>
     </div>
     <div>
-        @if (User.IsInRole("Firma, Administrator")) {
+        @if (User.IsInRole("Firma")) {
         <a asp-action="Edit" asp-route-id="@Model.IdPojazd">Edytuj |</a> 
         <a asp-action="Index">Wróć do listy</a>
         }
-        else
-        {
-            <a asp-action="IndexSpedytor">Wstecz</a>
-        }
+        @if (User.IsInRole("Admin"))
+         {
+        <a asp-action="EditAdmin" asp-route-id="@Model.IdPojazd">Edytuj |</a> 
+        <a asp-action="IndexSpedytor">Wróć do listy</a>
+         }
+         else
+         {
+             <a asp-action="ifdexSpedytor">Wstecz</a>  
+         }
 
     </div>
 </font>

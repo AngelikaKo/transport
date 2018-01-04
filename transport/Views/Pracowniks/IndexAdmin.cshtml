@@ -1,0 +1,68 @@
+﻿@model IEnumerable<transport.Models.Pracownik>
+    <font color="white">
+        @{
+            ViewData["Title"] = "Index";
+        }
+        <h2>Pracownicy</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Stanowisko)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Imie)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nazwisko)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Miasto)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Telefon)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Stanowisko)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Imie)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nazwisko)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Miasto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Telefon)
+                        </td>
+                        <td>
+                            @if (@item.Stanowisko.Equals("Kierowca"))
+                            {
+                                <a asp-action="EditFirmaKierowca" asp-route-id="@item.PracownikId">Edytuj</a>
+                            }
+                            @if (@item.Stanowisko.Equals("Spedytor"))
+                            {
+                                <a asp-action="EditFirmaSpedytor" asp-route-id="@item.PracownikId">Edytuj</a>
+                            }
+                            @if (@item.Stanowisko.Equals("Administrator"))
+                            {
+                                <a asp-action="EditFirmaAdministrator" asp-route-id="@item.PracownikId">Edytuj</a>
+                            }
+                            | <a asp-action="Details" asp-route-id="@item.PracownikId"> Więcej</a> |
+                            <a asp-action="Delete" asp-route-id="@item.PracownikId">Usuń</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </font>

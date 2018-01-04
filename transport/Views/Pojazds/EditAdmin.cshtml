@@ -1,19 +1,16 @@
 ﻿@model transport.Models.ApplicationModels.Pojazd
 
 <font color="white">
-
     @{
-        ViewData["Title"] = "Create";
+        ViewData["Title"] = "Edit";
     }
-
-    <h2>Dodaj nowy pojazd</h2>
-
-    <form asp-action="Create">
+    <h2>Edytuj</h2>
+    <form asp-action="EditAdmin">
         <div class="form-horizontal">
-          
+            <h4>Pojazd</h4>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
+            <input type="hidden" asp-for="IdPojazd" />
             <div class="form-group">
                 <label asp-for="IdPracownik" class="col-md-2 control-label">Kierowca</label>
                 <div class="col-md-10">
@@ -139,17 +136,16 @@
                         <label asp-for="Retarder"></label>
                     </div>
                 </div>
-            </div>           
+            </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Dodaj" class="btn btn-default" />
+                    <input type="submit" value="Zapisz" class="btn btn-default" />
                 </div>
             </div>
         </div>
     </form>
-
     <div>
-        <a asp-action="Index">Wróć do listy</a>
+        <a asp-action="IndexSpedytor">Wróć do listy</a>
     </div>
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

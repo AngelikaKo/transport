@@ -112,9 +112,18 @@
         </div>
     </form>
 
+    @if (User.IsInRole("Firma"))
+    {
     <div>
-        <a href="~/Pracowniks/Index">Wstecz</a>     
+        <a href="~/Pracowniks/Index">Wstecz</a>
     </div>
+    }
+    @if (User.IsInRole("Admin"))
+    {
+        <div>
+            <a href="~/Pracowniks/IndexAdmin">Wstecz</a>
+        </div>
+    }
 </font>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -89,7 +89,14 @@
         </div>
     </form>
     <div>
+       @if (User.IsInRole("Firma"))
+        {
         <a asp-action="Index">Wstecz</a>
+        }
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="IndexAdmin">Wstecz</a>
+        }
     </div>
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -4,9 +4,14 @@
             ViewData["Title"] = "Index";
         }
         <h2>Naczepy</h2>
-         @if (User.IsInRole("Firma, Administrator")) {
+         @if (User.IsInRole("Firma")) {
         <p>
             <a asp-action="Create">Dodaj nową</a>
+        </p>
+         }
+           @if (User.IsInRole("Admin")) {
+        <p>
+            <a asp-action="CreateAdmin">Dodaj nową</a>
         </p>
          }
         <table class="table">
@@ -50,14 +55,18 @@
                             @Html.DisplayFor(modelItem => item.Wymiary)
                         </td>
                         <td>
-                             @if (User.IsInRole("Firma, Administrator"))
+                             @if (User.IsInRole("Firma"))
                              {
                             <a asp-action="Edit" asp-route-id="@item.IdNaczepa">Edytuj |</a> 
                             <a asp-action="Delete" asp-route-id="@item.IdNaczepa"> Usuń |</a>
                              }
-                             else {
-                                 <a asp-action="Details" asp-route-id="@item.IdNaczepa">Więcej</a> 
-                             }
+                             @if (User.IsInRole("Admin"))
+                             {
+                                 <a asp-action="EditAdmin" asp-route-id="@item.IdNaczepa">Edytuj |</a> 
+                            <a asp-action="Delete" asp-route-id="@item.IdNaczepa"> Usuń |</a>
+                             }                             
+                               <a asp-action="Details" asp-route-id="@item.IdNaczepa">Więcej</a>
+                             
                         </td>
                     </tr>
                 }

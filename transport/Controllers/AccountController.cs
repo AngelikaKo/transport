@@ -235,7 +235,7 @@ namespace transport.Controllers
         //
         // GET: /Account/Register/Spedytor
         [HttpGet]
-        [Authorize(Roles = "Firma")]
+        [Authorize(Roles = "Firma, Admin")]
         public IActionResult RegisterSpedytor(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -245,7 +245,7 @@ namespace transport.Controllers
         //
         // POST: /Account/Register/Administrator
         [HttpPost]
-        [Authorize(Roles = "Firma")]
+        [Authorize(Roles = "Firma, Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterSpedytor(RegisterSpedytorViewModel model, string returnUrl = null)
         {
@@ -300,7 +300,7 @@ namespace transport.Controllers
         //
         // GET: /Account/Register/Kierowca
         [HttpGet]
-        [Authorize(Roles = "Firma")]
+        [Authorize(Roles = "Firma, Admin")]
         public IActionResult RegisterKierowca(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -310,7 +310,7 @@ namespace transport.Controllers
         //
         // POST: /Account/Register/Kierowca
         [HttpPost]
-        [Authorize(Roles = "Firma")]
+        [Authorize(Roles = "Firma, Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegisterKierowca(RegisterKierowcaViewModel model, string returnUrl = null)
         {

@@ -73,6 +73,28 @@ namespace transport.Controllers
 
         }
 
+        // GET: Pracowniks
+        public async Task<IActionResult> IndexAdmin()
+        {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+            if (firma != null)
+            {
+                var pracownicy = _context.Pracownicy.Where(p => p.FirmaId == firma.FirmaId);
+                //pracownicy.Where(r => r.Stanowisko == "Kierowca");
+                // pracownicy.Where(r => r.User.Roles.Equals("2513098d-e515-4a10-9200-0f26de27fcff"));
+
+                return View(await pracownicy.ToListAsync());
+                //return View(firma.Pracownicy.ToList());
+            }
+            else
+            {
+                return View(await _context.Pracownicy.ToListAsync());
+            }
+
+        }
+
         // GET: Pracowniks/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -92,7 +114,7 @@ namespace transport.Controllers
         }
 
         // GET: Pracowniks/Create
-        [Authorize(Roles = "Firma, Administrator")]
+        [Authorize(Roles = "Firma, Admin")]
         public IActionResult Create()
         {
             return View();
@@ -102,7 +124,7 @@ namespace transport.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Firma, Administrator")]
+        [Authorize(Roles = "Firma, Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny")] Pracownik pracownik)
         {
@@ -116,7 +138,7 @@ namespace transport.Controllers
         }
 
         // GET: Pracowniks/Edit/5
-        [Authorize(Roles = "Firma, Administrator")]
+        [Authorize(Roles = "Firma, Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -136,7 +158,7 @@ namespace transport.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles ="Firma, Administrator")]
+        [Authorize(Roles ="Firma, Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma")] Pracownik pracownik)
         {
@@ -173,7 +195,7 @@ namespace transport.Controllers
         }
 
         // GET: Pracowniks/Edit/5
-        [Authorize(Roles = "Firma, Administrator")]
+        [Authorize(Roles = "Firma, Admin")]
         public async Task<IActionResult> EditFirma(int? id)
         {
             if (id == null)
@@ -193,7 +215,7 @@ namespace transport.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Firma, Administrator")]
+        [Authorize(Roles = "Firma, Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditFirma(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma,Stanowisko")] Pracownik pracownik)
         {
@@ -234,7 +256,7 @@ namespace transport.Controllers
         }
 
         // GET: Pracowniks/Edit/5
-        [Authorize(Roles = "Firma, Administrator")]
+        [Authorize(Roles = "Firma, Admin")]
         public async Task<IActionResult> EditFirmaKierowca(int? id)
         {
             if (id == null)
@@ -254,7 +276,7 @@ namespace transport.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Firma, Administrator")]
+        [Authorize(Roles = "Firma, Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditFirmaKierowca(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma,Stanowisko")] Pracownik pracownik)
         {
@@ -294,7 +316,7 @@ namespace transport.Controllers
         }
 
         // GET: Pracowniks/Edit/5
-        [Authorize(Roles = "Firma, Administrator")]
+        [Authorize(Roles = "Firma, Admin")]
         public async Task<IActionResult> EditFirmaSpedytor(int? id)
         {
             if (id == null)
@@ -314,7 +336,7 @@ namespace transport.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Firma, Administrator")]
+        [Authorize(Roles = "Firma, Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditFirmaSpedytor(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma,Stanowisko")] Pracownik pracownik)
         {
@@ -354,7 +376,7 @@ namespace transport.Controllers
         }
 
         // GET: Pracowniks/Edit/5
-        [Authorize(Roles = "Firma, Administrator")]
+        [Authorize(Roles = "Firma, Admin")]
         public async Task<IActionResult> EditFirmaAdministrator(int? id)
         {
             if (id == null)
@@ -374,7 +396,7 @@ namespace transport.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Firma, Administrator")]
+        [Authorize(Roles = "Firma, Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditFirmaAdministrator(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma,Stanowisko")] Pracownik pracownik)
         {

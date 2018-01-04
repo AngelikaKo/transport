@@ -151,6 +151,45 @@ namespace transport.Controllers
             
         }
 
+         // GET: Naczepas/Create
+        [Authorize(Roles = "Firma, Admin")]
+        public IActionResult CreateAdmin()
+        {
+            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko}),
+            "PracownikId", "FullName");           
+            return View();
+        }
+
+        // POST: Naczepas/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Firma, Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateAdmin([Bind("IdNaczepa,IdFirma,Pracownik,Marka,Rodzaj,NrRejestr,DataProd,Wymiary,DataPrzegl,DataUbez,Wyposazenie,Aktywny")] Naczepa naczepa)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+                var firma = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+                naczepa.IdFirma = firma.FirmaId;
+                naczepa.Pracownik = firma;
+                _context.Add(naczepa);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("IndexSpedytor");
+            }
+            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko}),
+            "PracownikId", "FullName", null);
+            return View(naczepa);
+
+            
+        }
+
         // GET: Naczepas/Edit/5
         [Authorize(Roles = "Firma, Admin")]
         public async Task<IActionResult> Edit(int? id)
@@ -216,6 +255,72 @@ namespace transport.Controllers
             return View(naczepa);
         }
 
+        // GET: Naczepas/Edit/5
+        [Authorize(Roles = "Firma, Admin")]
+        public async Task<IActionResult> EditAdmin(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var naczepa = await _context.Naczepy.SingleOrDefaultAsync(m => m.IdNaczepa == id);
+            if (naczepa == null)
+            {
+                return NotFound();
+            }
+           ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko }),
+            "PracownikId", "FullName", null);
+            return View(naczepa);
+        }
+
+        // POST: Naczepas/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Firma, Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditAdmin(int id, [Bind("IdNaczepa,IdFirma,Pracownik,Marka,Rodzaj,NrRejestr,DataProd,Wymiary,DataPrzegl,DataUbez,Wyposazenie,Aktywny")] Naczepa naczepa)
+        {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+            if (id != naczepa.IdNaczepa)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    naczepa.IdFirma = firma.FirmaId;
+                    naczepa.Pracownik = firma;
+                    _context.Update(naczepa);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!NaczepaExists(naczepa.IdNaczepa))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("IndexSpedytor");
+            }
+            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko }),
+            "PracownikId", "FullName", null);
+            return View(naczepa);
+        }
+
         // GET: Naczepas/Delete/5
         [Authorize(Roles = "Firma, Admin")]
         public async Task<IActionResult> Delete(int? id)
@@ -245,7 +350,14 @@ namespace transport.Controllers
             var naczepa = await _context.Naczepy.SingleOrDefaultAsync(m => m.IdNaczepa == id);
             _context.Naczepy.Remove(naczepa);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            if (User.IsInRole("Firma"))
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("IndexSpedytor");
+            }
         }
 
         private bool NaczepaExists(int id)

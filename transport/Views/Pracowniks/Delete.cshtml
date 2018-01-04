@@ -90,7 +90,14 @@
         <form asp-action="Delete">
             <div class="form-actions no-color">
                 <input type="submit" value="Usuń" class="btn btn-default" /> |
-                <a asp-action="Index">Wstecz</a>
+                 @if (User.IsInRole("Firma"))
+        {
+        <a asp-action="Index">Wstecz</a>
+        }
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="IndexAdmin">Wstecz</a>
+        }
             </div>
         </form>
     </div>

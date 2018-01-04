@@ -73,7 +73,14 @@
         <form asp-action="Delete">
             <div class="form-actions no-color">
                 <input type="submit" value="Usuń" class="btn btn-default" /> |
+                @if (User.IsInRole("Firma"))
+                {
                 <a asp-action="Index">Wróć do listy</a>
+                }
+                @if (User.IsInRole("Admin"))
+                {
+                <a asp-action="IndexSpedytor">Wróć do listy</a>   
+                }
             </div>
         </form>
     </div>

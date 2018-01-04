@@ -1,4 +1,4 @@
-@model transport.Models.ApplicationModels.Pojazd
+ï»¿@model transport.Models.ApplicationModels.Pojazd
 
 <font color="white">
 
@@ -6,9 +6,9 @@
         ViewData["Title"] = "Delete";
     }
 
-    <h2>Usuñ</h2>
+    <h2>UsuÅ„</h2>
 
-    <h3>Napewno chcesz usun¹æ ten pojazd?</h3>
+    <h3>Napewno chcesz usunÄ…Ä‡ ten pojazd?</h3>
     <div>
        
         <hr />
@@ -109,31 +109,26 @@
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Retarder)
-            </dd>
+            </dd>  
             <dt>
-                @Html.DisplayNameFor(model => model.Aktywny)
+                Kierowca
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Aktywny)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Firmy)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Firmy.IdFirma)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Pracownicy)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Pracownicy.IdPracownik)
+                @Html.DisplayFor(model => model.Pracownik.GetFullName)
             </dd>
         </dl>
 
         <form asp-action="Delete">
             <div class="form-actions no-color">
-                <input type="submit" value="Usuñ" class="btn btn-default" /> |
-                <a asp-action="Index">Wróæ do listy</a>
+                <input type="submit" value="UsuÅ„" class="btn btn-default" /> |
+                @if (User.IsInRole("Firma"))
+                {
+                <a asp-action="Index">WrÃ³Ä‡ do listy</a>
+                }
+                @if (User.IsInRole("Admin"))
+                {
+                <a asp-action="IndexSpedytor">WrÃ³Ä‡ do listy</a> 
+                }
             </div>
         </form>
     </div>

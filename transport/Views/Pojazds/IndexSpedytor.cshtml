@@ -4,10 +4,14 @@
             ViewData["Title"] = "Index";
         }
         <h2>Ciągniki siodłowe</h2>
-         @if (User.IsInRole("Firma, Administrator")) {
+         @if (User.IsInRole("Firma")) {
         <p>
             <a asp-action="Create">Dodaj nowy</a>
         </p>
+         }
+         @if (User.IsInRole("Admin"))
+         {
+             <a asp-action="CreateAdmin">Dodaj nowy</a>
          }
         <table class="table">
             <thead>
@@ -56,9 +60,14 @@
                             @Html.DisplayFor(modelItem => item.EmisjaSpalin)
                         </td>
                         <td>
-                            @if (User.IsInRole("Firma, Administrator"))
+                            @if (User.IsInRole("Firma"))
                             {
                                 <a asp-action="Edit" asp-route-id="@item.IdPojazd">Edytuj |</a>
+                                  <a asp-action="Delete" asp-route-id="@item.IdPojazd">Usuń |</a>
+                            }
+                            @if (User.IsInRole("Admin"))
+                            {
+                                 <a asp-action="EditAdmin" asp-route-id="@item.IdPojazd">Edytuj |</a>
                                   <a asp-action="Delete" asp-route-id="@item.IdPojazd">Usuń |</a>
                             }
                             <a asp-action="Details" asp-route-id="@item.IdPojazd">Więcej</a> 

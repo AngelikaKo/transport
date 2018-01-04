@@ -151,6 +151,44 @@ namespace transport.Controllers
             return View(pojazd);
         }
 
+        // GET: Pojazds/Create
+        [Authorize(Roles = "Firma, Admin")]
+        public IActionResult CreateAdmin()
+        {
+            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId =s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko}), 
+            "PracownikId", "FullName", null);
+            return View();
+        }
+
+        // POST: Pojazds/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Firma, Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateAdmin([Bind("IdPojazd,IdFirma,Pracownik,Marka,Model,VIN,NrRejestr,DataProd,TachoOdczyt,TachoLegal,DataPrzegl,DataUbez,SpalanieSred,PrzebiegZakup,PrzebiegAktu,PrzebiegSerwis,RodzajKabiny,EmisjaSpalin,Retarder,Aktywny")] Pojazd pojazd)
+        {
+            if (ModelState.IsValid)
+            {
+                var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+                var firma = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+                pojazd.IdFirma = firma.FirmaId;
+                pojazd.Pracownik = firma;
+                _context.Add(pojazd);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("IndexSpedytor");
+            }
+            ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId =s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko}), 
+            "PracownikId", "FullName", null);
+            return View(pojazd);
+        }
+
+
         // GET: Pojazds/Edit/5
         [Authorize(Roles = "Firma, Admin")]
         public async Task<IActionResult> Edit(int? id)
@@ -218,6 +256,74 @@ namespace transport.Controllers
             return View(pojazd);
         }
 
+         // GET: Pojazds/Edit/5
+        [Authorize(Roles = "Firma, Admin")]
+        public async Task<IActionResult> EditAdmin(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var pojazd = await _context.Pojazdy.SingleOrDefaultAsync(m => m.IdPojazd == id);
+            if (pojazd == null)
+            {
+                return NotFound();
+            }
+           // ViewData["IdFirma"] = new SelectList(_context.Firmy, "IdFirma", "IdFirma", pojazd.IdFirma);
+           ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko }),
+            "PracownikId", "FullName", null);
+            return View(pojazd);
+        }
+
+        // POST: Pojazds/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize(Roles = "Firma, Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditAdmin(int id, [Bind("IdPojazd,IdFirma,Pracownik,Marka,Model,VIN,NrRejestr,DataProd,TachoOdczyt,TachoLegal,DataPrzegl,DataUbez,SpalanieSred,PrzebiegZakup,PrzebiegAktu,PrzebiegSerwis,RodzajKabiny,EmisjaSpalin,Retarder,Aktywny")] Pojazd pojazd)
+        {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+            if (id != pojazd.IdPojazd)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    pojazd.IdFirma = firma.FirmaId;
+                    pojazd.Pracownik = firma;
+                    _context.Update(pojazd);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PojazdExists(pojazd.IdPojazd))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("IndexSpedytor");
+            }
+           // ViewData["IdFirma"] = new SelectList(_context.Firmy, "IdFirma", "IdFirma", pojazd.IdFirma);
+           ViewData["FullNamee"] = new SelectList((from s in _context.Pracownicy.ToList() select new {
+            PracownikId = s.PracownikId,
+            FullName = s.Imie + " " + s.Nazwisko }),
+            "PracownikId", "FullName", null);
+            return View(pojazd);
+        }
+
         // GET: Pojazds/Delete/5
         [Authorize(Roles = "Firma, Admin")]
         public async Task<IActionResult> Delete(int? id)
@@ -248,7 +354,14 @@ namespace transport.Controllers
             var pojazd = await _context.Pojazdy.SingleOrDefaultAsync(m => m.IdPojazd == id);
             _context.Pojazdy.Remove(pojazd);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+            if (User.IsInRole("Firma"))
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("IndexSpedytor");
+            }
         }
 
         private bool PojazdExists(int id)
