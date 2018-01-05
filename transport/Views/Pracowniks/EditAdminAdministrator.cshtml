@@ -5,7 +5,7 @@
         ViewData["Title"] = "Edit";
     }
     <h2>Edytuj</h2>
-    <form asp-action="EditFirmaAdministrator">
+    <form asp-action="EditAdminAdministrator">
         <div class="form-horizontal">
             <h4>Administrator</h4>
             <hr />
@@ -73,7 +73,7 @@
                     <input asp-for="DataKonUmowy" class="form-control" />
                     <span asp-validation-for="DataKonUmowy" class="text-danger"></span>
                 </div>
-            </div>                  
+            </div>
             <div class="form-group">
                 <label asp-for="NrDowoduOsob" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
@@ -88,16 +88,9 @@
             </div>
         </div>
     </form>
-    <div>
-        @if (User.IsInRole("Firma"))
-        {
-        <a asp-action="Index">Wstecz</a>
-        }
-        @if (User.IsInRole("Admin"))
-        {
+    <div>  
             <a asp-action="IndexAdmin">Wstecz</a>
-        }
-    </div>
+           </div>
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }

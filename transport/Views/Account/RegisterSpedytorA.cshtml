@@ -1,16 +1,36 @@
-@model transport.Models.Pracownik
+﻿@model transport.Models.AccountViewModels.RegisterSpedytorViewModel
 
 <font color="white">
     @{
-        ViewData["Title"] = "Edit";
+        ViewData["Title"] = "RegisterSpedytor";
     }
-    <h2>Edytuj</h2>
-    <form asp-action="EditFirmaAdministrator">
+    <h2>Dodaj spedytora</h2>
+    <form asp-action="RegisterSpedytorA">
         <div class="form-horizontal">
-            <h4>Administrator</h4>
+            <h4>Uzupełnij dane.</h4>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="PracownikId" />
+            <div class="form-group">
+                <label asp-for="Email" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
             <div class="form-group">
                 <label asp-for="Imie" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
@@ -73,7 +93,7 @@
                     <input asp-for="DataKonUmowy" class="form-control" />
                     <span asp-validation-for="DataKonUmowy" class="text-danger"></span>
                 </div>
-            </div>                  
+            </div>
             <div class="form-group">
                 <label asp-for="NrDowoduOsob" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
@@ -83,22 +103,24 @@
             </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Zapisz" class="btn btn-default" />
+                    <input type="submit" value="Dodaj" class="btn btn-default" />
                 </div>
             </div>
         </div>
     </form>
-    <div>
-        @if (User.IsInRole("Firma"))
-        {
-        <a asp-action="Index">Wstecz</a>
-        }
-        @if (User.IsInRole("Admin"))
-        {
-            <a asp-action="IndexAdmin">Wstecz</a>
-        }
-    </div>
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @if (User.IsInRole("Firma"))
+    {
+        <div>
+            <a href="~/Pracowniks/Index">Wstecz</a>
+        </div>
+    }
+    @if (User.IsInRole("Admin"))
+    {
+        <div>
+            <a href="~/Pracowniks/IndexAdmin">Wstecz</a>
+        </div>
     }
 </font>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

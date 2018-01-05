@@ -48,15 +48,15 @@
                         <td>
                             @if (@item.Stanowisko.Equals("Kierowca"))
                             {
-                                <a asp-action="EditFirmaKierowca" asp-route-id="@item.PracownikId">Edytuj</a>
+                                <a asp-action="EditAdminKierowca" asp-route-id="@item.PracownikId">Edytuj</a>
                             }
                             @if (@item.Stanowisko.Equals("Spedytor"))
                             {
-                                <a asp-action="EditFirmaSpedytor" asp-route-id="@item.PracownikId">Edytuj</a>
+                                <a asp-action="EditAdminSpedytor" asp-route-id="@item.PracownikId">Edytuj</a>
                             }
                             @if (@item.Stanowisko.Equals("Administrator"))
                             {
-                                <a asp-action="EditFirmaAdministrator" asp-route-id="@item.PracownikId">Edytuj</a>
+                                <a asp-action="EditAdminAdministrator" asp-route-id="@item.PracownikId">Edytuj</a>
                             }
                             | <a asp-action="Details" asp-route-id="@item.PracownikId"> Więcej</a> |
                             <a asp-action="Delete" asp-route-id="@item.PracownikId">Usuń</a>

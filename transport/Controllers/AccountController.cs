@@ -298,6 +298,71 @@ namespace transport.Controllers
         }
 
         //
+        // GET: /Account/Register/Spedytor
+        [HttpGet]
+        [Authorize(Roles = "Firma, Admin")]
+        public IActionResult RegisterSpedytorA(string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        //
+        // POST: /Account/Register/Administrator
+        [HttpPost]
+        [Authorize(Roles = "Firma, Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegisterSpedytorA(RegisterSpedytorViewModel model, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+                var firma = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    Pracownik = new Pracownik
+                    {
+                        Stanowisko = "Spedytor",
+                        Imie = model.Imie,
+                        Nazwisko = model.Nazwisko,
+                        Ulica = model.Ulica,
+                        Kod = model.Kod,
+                        Miasto = model.Miasto,
+                        Telefon = model.Telefon,
+                        DataUrodz = model.DataUrodz,
+                        DataZatru = model.DataZatru,
+                        DataKonUmowy = model.DataKonUmowy,
+                        NrDowoduOsob = model.NrDowoduOsob,
+                        Aktywny = model.Aktywny,
+                        FirmaId = firma.FirmaId
+                    }
+                };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "Spedytor");
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
+                    // Send an email with this link
+                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
+                    //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
+                    _logger.LogInformation(3, "User created a new account with password.");
+                    return RedirectToLocal(returnUrl);
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        //
         // GET: /Account/Register/Kierowca
         [HttpGet]
         [Authorize(Roles = "Firma, Admin")]
@@ -342,6 +407,75 @@ namespace transport.Controllers
                         DataOdczKart = model.DataOdczKart,
                         Aktywny = model.Aktywny,
                         Firma = firma
+                    },
+                };
+
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "Kierowca");
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
+                    // Send an email with this link
+                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
+                    //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
+                    _logger.LogInformation(3, "User created a new account with password.");
+                    return RedirectToLocal(returnUrl);
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        //
+        // GET: /Account/Register/Kierowca
+        [HttpGet]
+        [Authorize(Roles = "Firma, Admin")]
+        public IActionResult RegisterKierowcaA(string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        //
+        // POST: /Account/Register/Kierowca
+        [HttpPost]
+        [Authorize(Roles = "Firma, Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegisterKierowcaA(RegisterKierowcaViewModel model, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+
+                var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+                var firma = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    Pracownik = new Pracownik
+                    {
+                        Stanowisko = "Kierowca",
+                        Imie = model.Imie,
+                        Nazwisko = model.Nazwisko,
+                        Ulica = model.Ulica,
+                        Kod = model.Kod,
+                        Miasto = model.Miasto,
+                        Telefon = model.Telefon,
+                        DataUrodz = model.DataUrodz,
+                        DataZatru = model.DataZatru,
+                        DataKonUmowy = model.DataKonUmowy,
+                        NrDowoduOsob = model.NrDowoduOsob,
+                        DataKarty = model.DataKarty,
+                        DataOdczKart = model.DataOdczKart,
+                        Aktywny = model.Aktywny,
+                        FirmaId = firma.FirmaId
                     },
                 };
 

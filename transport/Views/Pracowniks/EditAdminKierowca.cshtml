@@ -5,9 +5,9 @@
         ViewData["Title"] = "Edit";
     }
     <h2>Edytuj</h2>
-    <form asp-action="EditFirmaAdministrator">
+    <form asp-action="EditAdminKierowca">
         <div class="form-horizontal">
-            <h4>Administrator</h4>
+            <h4>Kierowca</h4>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PracownikId" />
@@ -73,7 +73,21 @@
                     <input asp-for="DataKonUmowy" class="form-control" />
                     <span asp-validation-for="DataKonUmowy" class="text-danger"></span>
                 </div>
-            </div>                  
+            </div>
+            <div class="form-group">
+                <label asp-for="DataKarty" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="DataKarty" class="form-control" />
+                    <span asp-validation-for="DataKarty" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataOdczKart" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="DataOdczKart" class="form-control" />
+                    <span asp-validation-for="DataOdczKart" class="text-danger"></span>
+                </div>
+            </div>
             <div class="form-group">
                 <label asp-for="NrDowoduOsob" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
@@ -89,14 +103,10 @@
         </div>
     </form>
     <div>
-        @if (User.IsInRole("Firma"))
-        {
-        <a asp-action="Index">Wstecz</a>
-        }
-        @if (User.IsInRole("Admin"))
-        {
+       
+       
             <a asp-action="IndexAdmin">Wstecz</a>
-        }
+        
     </div>
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
