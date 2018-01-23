@@ -15,22 +15,16 @@ namespace transport.Controllers
     public class PracowniksController : Controller
     {
         private readonly ApplicationDbContext _context;
-
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
-
-        public PracowniksController(
-            ApplicationDbContext context,
-            SignInManager<ApplicationUser> signInManager,
+        
+        public PracowniksController(ApplicationDbContext context, SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
-        }
-
-        
+        }               
 
         // GET: Pracowniks
         public async Task<IActionResult> Index()
@@ -41,14 +35,12 @@ namespace transport.Controllers
             if (firma != null)
             {                
                 var pracownicy = _context.Pracownicy.Where(p => p.FirmaId == firma.IdFirma);
-                return View(await pracownicy.ToListAsync());
-                //return View(firma.Pracownicy.ToList());
+                return View(await pracownicy.ToListAsync());                
             }
             else
             {
                 return View(await _context.Pracownicy.ToListAsync());
             }
-
         }
 
         // GET: Pracowniks
@@ -278,7 +270,7 @@ namespace transport.Controllers
         [HttpPost]
         [Authorize(Roles = "Firma, Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditFirmaKierowca(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma,Stanowisko")] Pracownik pracownik)
+        public async Task<IActionResult> EditFirmaKierowca(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma,Stanowisko,UserId")] Pracownik pracownik)
         {
             //var userid = pracownik.UserId;           
             var currentuser = await _userManager.GetUserAsync(HttpContext.User);
@@ -338,7 +330,7 @@ namespace transport.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditAdminKierowca(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,FirmaId,Stanowisko")] Pracownik pracownik)
+        public async Task<IActionResult> EditAdminKierowca(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,FirmaId,Stanowisko,UserId")] Pracownik pracownik)
         {
             //var userid = pracownik.UserId;           
             var currentuser = await _userManager.GetUserAsync(HttpContext.User);
@@ -400,7 +392,7 @@ namespace transport.Controllers
         [HttpPost]
         [Authorize(Roles = "Firma, Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditFirmaSpedytor(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma,Stanowisko")] Pracownik pracownik)
+        public async Task<IActionResult> EditFirmaSpedytor(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma,Stanowisko,UserId")] Pracownik pracownik)
         {
             //var userid = pracownik.UserId;           
             var currentuser = await _userManager.GetUserAsync(HttpContext.User);
@@ -460,7 +452,7 @@ namespace transport.Controllers
         [HttpPost]
         [Authorize(Roles = "Firma, Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditAdminSpedytor(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,FirmaId,Stanowisko")] Pracownik pracownik)
+        public async Task<IActionResult> EditAdminSpedytor(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,FirmaId,Stanowisko,UserId")] Pracownik pracownik)
         {
             //var userid = pracownik.UserId;           
             var currentuser = await _userManager.GetUserAsync(HttpContext.User);
@@ -521,7 +513,7 @@ namespace transport.Controllers
         [HttpPost]
         [Authorize(Roles = "Firma, Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditFirmaAdministrator(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma,Stanowisko")] Pracownik pracownik)
+        public async Task<IActionResult> EditFirmaAdministrator(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,Firma,Stanowisko,UserId")] Pracownik pracownik)
         {
            // var userid = pracownik.UserId;           
             var currentuser = await _userManager.GetUserAsync(HttpContext.User);
@@ -581,7 +573,7 @@ namespace transport.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditAdminAdministrator(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,FirmaId,Stanowisko")] Pracownik pracownik)
+        public async Task<IActionResult> EditAdminAdministrator(int id, [Bind("PracownikId,Imie,Nazwisko,Ulica,Kod,Miasto,Telefon,DataUrodz,DataZatru,DataKonUmowy,DataKarty,DataOdczKart,NrDowoduOsob,Aktywny,FirmaId,Stanowisko,UserId")] Pracownik pracownik)
         {
             // var userid = pracownik.UserId;           
             var currentuser = await _userManager.GetUserAsync(HttpContext.User);

@@ -37,6 +37,13 @@ namespace transport.Controllers
         }
 
         // GET: Ogloszenies
+        public async Task<IActionResult> IndexBootstrap()
+        {
+            var applicationDbContext = _context.Ogloszenia.Include(o => o.Firma);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        // GET: Ogloszenies
         [Authorize(Roles = "Firma, Admin")]
         public async Task<IActionResult> IndexFirma()
         {

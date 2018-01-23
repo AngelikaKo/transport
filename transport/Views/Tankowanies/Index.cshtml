@@ -15,7 +15,7 @@
                     @Html.DisplayNameFor(model => model.DataTank)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Pracownik)
+                    Kierowca
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.IloscPaliwa)
@@ -31,7 +31,7 @@
                     @Html.DisplayFor(modelItem => item.DataTank)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IdPracownik)
+                    @Html.DisplayFor(modelItem => item.Pracownik.GetFullName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IloscPaliwa)

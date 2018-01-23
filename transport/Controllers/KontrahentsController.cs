@@ -31,17 +31,50 @@ namespace transport.Controllers
 
         // GET: Kontrahents
         [Authorize(Roles = "Firma, Spedytor, Admin")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id, string sortOrder, string searchString)
         {
             var currentuser = await _userManager.GetUserAsync(HttpContext.User);
             var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
 
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "nazwa_desc" : "";
+            ViewData["MiastoSortParm"] = String.IsNullOrEmpty(sortOrder) ? "miasto_desc" : "";
+            ViewData["CurrentFilter"] = searchString;
+
             if (firma != null)
             {
-                var kontrahenci = _context.Kontrahenci.Where(p => p.IdFirma == firma.IdFirma);
-                return View(await kontrahenci.ToListAsync());
+                var kontrahenci = from s in _context.Kontrahenci.Where(p => p.IdFirma == firma.IdFirma) select s;
+
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    kontrahenci = kontrahenci.Where(s => s.Nazwa.Contains(searchString)
+                    || s.Wlasciciel.Contains(searchString)
+                    || s.Miasto.Contains(searchString)
+                    || s.NIP.Contains(searchString)
+                    || s.Typ.Contains(searchString)
+                    || s.Telefon.Contains(searchString));
+                }
+
+                switch (sortOrder)
+                {
+                    case "nazwa_desc":
+                        kontrahenci = kontrahenci.OrderByDescending(s => s.Nazwa);
+                        break;
+                    case "Miasto":
+                        kontrahenci = kontrahenci.OrderBy(s => s.Nazwa);
+                        break;
+                    case "miasto_desc":
+                        kontrahenci = kontrahenci.OrderByDescending(s => s.Miasto);
+                        break;
+                    default:
+                        kontrahenci = kontrahenci.OrderBy(s => s.Nazwa);
+                        break;
+                }
+                
+
+            return View(await kontrahenci.ToListAsync());
                
-            }
+            }   
             else
             {
                 return View(await _context.Kontrahenci.ToListAsync());

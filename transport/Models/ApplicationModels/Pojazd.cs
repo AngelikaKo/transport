@@ -50,10 +50,10 @@ namespace transport.Models.ApplicationModels
         [Display(Name = "Średnie spalanie")]
         public decimal SpalanieSred { get; set; }
 
-        [Display(Name = "Przebieg przy zakupu")]
+        [Display(Name = "Przebieg przy zakupie pojazdu")]
         public int PrzebiegZakup { get; set; }
 
-        [Display(Name = "Przebieg Aktualny")]
+        [Display(Name = "Aktualny przebieg")]
         public int PrzebiegAktu { get; set; }
 
         [Display(Name = "Przebieg podczas ostatniego serwisu")]

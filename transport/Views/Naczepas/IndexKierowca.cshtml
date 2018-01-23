@@ -45,16 +45,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Wymiary)
                         </td>
-                        <td>
-                            @if (User.IsInRole("Firma, Administrator"))
-                            {
-                                <a asp-action="Edit" asp-route-id="@item.IdNaczepa">Edytuj |</a>
-                                <a asp-action="Delete" asp-route-id="@item.IdNaczepa"> Usuń |</a>
-                            }
-                            else
-                            {
-                                <a asp-action="Details" asp-route-id="@item.IdNaczepa">Więcej</a>
-                            }
+                        <td>                          
                         </td>
                     </tr>
                 }

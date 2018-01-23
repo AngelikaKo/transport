@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<transport.Models.ApplicationModels.Zlecenie>
     <font color="white">
         @{
-            ViewData["Title"] = "Index";
+            ViewData["Title"] = "IndexSpedytor";
         }
         <h2>Zlecenia</h2>
         <p>
@@ -20,7 +20,7 @@
             <thead>
                 <tr>
                     <th>
-                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Status)</a>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NamesSortParm"]">@Html.DisplayNameFor(model => model.Status)</a>
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.AdresOdbioru)
@@ -29,10 +29,10 @@
                         @Html.DisplayNameFor(model => model.AdresDosta)
                     </th>
                     <th>
-                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.DataZalad)</a>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DatesSortParm"]">@Html.DisplayNameFor(model => model.DataZalad)</a>
                     </th>
                     <th>
-                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm2"]">@Html.DisplayNameFor(model => model.DataRozl)</a>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DatesSortParm2"]">@Html.DisplayNameFor(model => model.DataRozl)</a>
                     </th>                   
 
                     @if (!User.IsInRole("Kierowca"))

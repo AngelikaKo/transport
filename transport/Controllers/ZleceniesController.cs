@@ -70,17 +70,11 @@ namespace transport.Controllers
             if (zlecenie == null)
             {
                 return NotFound();
-            }
-         //   ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa", zlecenie.IdKontrahent);
-         //   ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr", zlecenie.IdNaczepa);
-         //   ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr", zlecenie.IdPojazd);
-           // ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie", zlecenie.IdPracownik);
+            }       
             return View(zlecenie);
         }
 
-        // POST: Zlecenies/zmiana statusu dla kierowcy
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Zlecenies/zmiana statusu dla kierowcy        
         [HttpPost]
         [Authorize(Roles = "Kierowca")]
         [ValidateAntiForgeryToken]
@@ -90,12 +84,10 @@ namespace transport.Controllers
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-
                     var z1 = _context.Zlecenia.FirstOrDefault(z => z.IdZlecenie == zlecenie.IdZlecenie);
                     z1.Status = zlecenie.Status;
                     _context.Update(z1);
@@ -113,11 +105,7 @@ namespace transport.Controllers
                     }
                 }
                 return RedirectToAction("IndexKierowca");
-            }
-           // ViewData["IdKontrahent"] = new SelectList(_context.Kontrahenci, "IdKontrahent", "Nazwa", zlecenie.IdKontrahent);
-          //  ViewData["IdNaczepa"] = new SelectList(_context.Naczepy, "IdNaczepa", "NrRejestr", zlecenie.IdNaczepa);
-          //  ViewData["IdPojazd"] = new SelectList(_context.Pojazdy, "IdPojazd", "NrRejestr", zlecenie.IdPojazd);
-           // ViewData["IdPracownik"] = new SelectList(_context.Pracownicy, "IdPracownik", "Imie", zlecenie.IdPracownik);
+            }         
             return View(zlecenie);
         }
 
@@ -196,9 +184,9 @@ namespace transport.Controllers
             // var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
             var firma = _context.Pracownicy.FirstOrDefault(f => f.UserId == currentuser.Id);
 
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "status_desc" : "";
-            ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
-            ViewData["DateSortParm2"] = sortOrder == "Date2" ? "date_desc2" : "Date2";
+            ViewData["NamesSortParm"] = String.IsNullOrEmpty(sortOrder) ? "status_desc" : "";
+            ViewData["DatesSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["DatesSortParm2"] = sortOrder == "Date2" ? "date_desc2" : "Date2";
             ViewData["CurrentFilter"] = searchString;
 
             if (firma != null)
@@ -250,7 +238,7 @@ namespace transport.Controllers
             }
             else
             {
-                return View(await _context.Pojazdy.ToListAsync());
+                return View(await _context.Zlecenia.ToListAsync());
             }
         }
 
@@ -466,6 +454,9 @@ namespace transport.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdZlecenie,Firma,IdKontrahent,IdPracownik,IdPojazd,IdNaczepa,AdresOdbioru,AdresDosta,DataZalad,GodzZalad,DataRozl,GodzRozl,Uwagi,DaneTowar,WagaTow,WartoscNetto,Aktywny,Waluta,Status")] Zlecenie zlecenie)
         {
+            var currentuser = await _userManager.GetUserAsync(HttpContext.User);
+            var firma = _context.Firmy.FirstOrDefault(f => f.UserId == currentuser.Id);
+
             if (id != zlecenie.IdZlecenie)
             {
                 return NotFound();
@@ -475,6 +466,7 @@ namespace transport.Controllers
             {
                 try
                 {
+                    zlecenie.Firma = firma;
                     _context.Update(zlecenie);
                     await _context.SaveChangesAsync();
                 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace transport.Migrations
 {
-    public partial class initTank : Migration
+    public partial class initNowabaza : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -329,6 +329,7 @@ namespace transport.Migrations
                     Miasto = table.Column<string>(nullable: true),
                     Nazwisko = table.Column<string>(nullable: true),
                     NrDowoduOsob = table.Column<string>(nullable: true),
+                    Stanowisko = table.Column<string>(nullable: true),
                     Telefon = table.Column<string>(nullable: true),
                     Ulica = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true)

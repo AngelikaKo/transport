@@ -8,8 +8,8 @@ using transport.Data;
 namespace transport.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180102201041_initOgl")]
-    partial class initOgl
+    [Migration("20180108152723_initNowabaza")]
+    partial class initNowabaza
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -602,6 +602,8 @@ namespace transport.Migrations
                     b.Property<string>("Nazwisko");
 
                     b.Property<string>("NrDowoduOsob");
+
+                    b.Property<string>("Stanowisko");
 
                     b.Property<string>("Telefon");
 

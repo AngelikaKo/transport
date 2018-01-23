@@ -88,24 +88,24 @@
                             </td>
                         }
 
-                        <td>
-                            @if (User.IsInRole("Kierowca"))
-                            {
-                                <a asp-action="Akceptuje" asp-route-id="@item.IdZlecenie">Szczegóły</a>
+                            <td>
+                                @if (User.IsInRole("Kierowca"))
+    {
+                            <a asp-action="Akceptuje" asp-route-id="@item.IdZlecenie" class="btn btn-default" >Szczegóły </a>
 
-                                <a asp-action="Trasa" asp-route-id="@item.IdZlecenie">| trasa</a>
-                                @ViewBag.MyUrl;
+                            <a asp-action="Trasa" asp-route-id="@item.IdZlecenie" class="btn btn-warning">TRASA</a>                          
+                            @ViewBag.MyUrl;
 
-                            }
-                            else
-                            {
-                                <a asp-action="Edit" asp-route-id="@item.IdZlecenie">Edytuj</a>
+}
+else
+{
+                            <a asp-action="Edit" asp-route-id="@item.IdZlecenie">Edytuj</a>
 
-                                <a asp-action="Details" asp-route-id="@item.IdZlecenie">| Więcej </a>
+                            <a asp-action="Details" asp-route-id="@item.IdZlecenie">| Więcej </a>
 
-                                <a asp-action="Delete" asp-route-id="@item.IdZlecenie">| Usuń</a>
-                                <a asp-action="Trasa" asp-route-id="@item.IdZlecenie">| trasa</a>}
-                        </td>
+                            <a asp-action="Delete" asp-route-id="@item.IdZlecenie">| Usuń</a>
+                            <a asp-action="Trasa" asp-route-id="@item.IdZlecenie">| trasa</a>}
+                            </td>
                     </tr>
                 }
             </tbody>

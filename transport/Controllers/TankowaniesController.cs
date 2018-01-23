@@ -38,7 +38,9 @@ namespace transport.Controllers
 
             if (firma != null)
             {
-                var tankowania = _context.Tankowania.Where(p => p.IdFirma == firma.IdFirma);
+                var tankowania = _context.Tankowania
+                    .Include(t => t.Pojazd).Include(t => t.Pracownik)
+                    .Where(p => p.IdFirma == firma.IdFirma);
                 return View(await tankowania.ToListAsync());
                 //return View(firma.Pracownicy.ToList());
             }

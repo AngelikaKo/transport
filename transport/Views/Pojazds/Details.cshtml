@@ -126,9 +126,13 @@
         <a asp-action="EditAdmin" asp-route-id="@Model.IdPojazd">Edytuj |</a> 
         <a asp-action="IndexSpedytor">Wróć do listy</a>
          }
-         else
+          @if (User.IsInRole("Spedytor"))
          {
-             <a asp-action="ifdexSpedytor">Wstecz</a>  
+             <a asp-action="IndexSpedytor">Wstecz</a>  
+         }
+          @if (User.IsInRole("Kierowca"))
+         {
+             <a asp-action="IndexKierowca">Wstecz</a>  
          }
 
     </div>

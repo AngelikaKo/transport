@@ -38,14 +38,7 @@ namespace transport.Controllers
             ApplicationUser usr = await GetCurrentUserAsync();
             return usr?.Id;
         }
-        /*
-        [HttpGet]
-        public async Task<int> GetCurrentUserFirmaId()
-        {
-            ApplicationUser user = await GetCurrentUserAsync();
-            return user.IdFirma;
-        }
-        */
+        
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Firmas
